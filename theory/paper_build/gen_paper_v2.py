@@ -3,7 +3,7 @@
 gen_paper_v2.py — Bản thảo v2 (ĐỒNG BỘ với proofs đã chứng minh, Route A).
   - Theorem 1′ PROVEN; Theorem 2 & 3 PROVEN cho lớp NON-ADAPTIVE, biên chặt r=β(1−c)/(1−β);
     Proposition 4 PROVEN dưới Assumption A. Bỏ slope cũ (κK)/(W+1).
-  - Tác giả đơn: Lam Quoc Dat <lamquocdat@gmail.com>. §VI: real-data 121 video. Appendix có proofs.
+  - Tác giả đơn: Lam Quoc Dat <[e-mail withheld in repository]>. §VI: real-data 121 video. Appendix có proofs.
 Xuất 03_Paper_Draft_v2.docx vào submission_package/.
 """
 from docx import Document
@@ -36,7 +36,7 @@ def fig(path, cap, width=6.2):
 doc.add_heading("Learning-Augmented Frame Scheduling: Consistency–Robustness Bounds "
                 "for Gating with Untrusted Motion Predictors", level=0)
 P("Lam Quoc Dat", bold=True, align="c")
-P("CERTES dissertation, Topic 03 · lamquocdat@gmail.com · [Affiliation]", italic=True, align="c")
+P("CERTES dissertation, Topic 03 · [e-mail withheld in repository] · [Affiliation]", italic=True, align="c")
 P("Draft v2 · June 12, 2026 · Target: IEEE Transactions on Computers", italic=True, align="c")
 
 # ---------------- Abstract ----------------

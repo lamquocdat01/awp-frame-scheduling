@@ -24,7 +24,7 @@ def P(d, t, b=False, i=False):
 d = newdoc()
 P(d, "Lam Quoc Dat", b=True)
 P(d, "CERTES dissertation · [Affiliation]")
-P(d, "lamquocdat@gmail.com")
+P(d, "[e-mail withheld in repository]")
 P(d, "June 12, 2026")
 P(d, "")
 P(d, "To the Editor-in-Chief, IEEE Transactions on Computers", b=True)
@@ -106,7 +106,7 @@ d.save(PKG + "03_Response_Template.docx")
 # ---------------- Submission checklist ----------------
 d = newdoc()
 d.add_heading("Submission Checklist — Topic 03", level=1)
-P(d, "Target: IEEE Transactions on Computers. Sole author: Lam Quoc Dat (lamquocdat@gmail.com).", i=True)
+P(d, "Target: IEEE Transactions on Computers. Sole author: Lam Quoc Dat ([e-mail withheld in repository]).", i=True)
 d.add_heading("Package contents (submission_package/)", level=2)
 for t in ["03_Paper_Draft_v2.docx / .pdf — manuscript (theory synced; proofs in Appendix A)",
           "03_Cover_Letter_v2.docx — cover letter (single author)",
