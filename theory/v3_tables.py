@@ -4,6 +4,7 @@ Writes Revision_v3/tab_a8a.tex and Revision_v3/tab_a8c.tex.
 """
 import csv
 from pathlib import Path
+from v3_io import atomic_write_text  # noqa: E402  (atomic writes, C7)
 
 TOPIC = Path(__file__).resolve().parents[1]
 RES = TOPIC / "results" / "v3"
@@ -29,7 +30,7 @@ def tab_a8a():
             lb = "---" if lb == "" or float(lb) <= 0 else f3(lb)
             out.append(rf"{float(r['x']):g} & {f3(r['c_emp'])} & {f3(r['r_worst_emp'])}\,[{f3(r['ci_lo'])},{f3(r['ci_hi'])}] & {lb} & {f3(r['r_star_c_emp'])} & {f3(r['ceiling_beta'])}\\")
     out += [r"\bottomrule", r"\end{tabular}", r"\end{table}"]
-    (REV / "tab_a8a.tex").write_text("\n".join(out) + "\n", encoding="utf-8")
+    atomic_write_text(REV / "tab_a8a.tex", "\n".join(out) + "\n", encoding="utf-8")
 
 
 def tab_a8c():
@@ -51,7 +52,7 @@ def tab_a8c():
         if c == "1.0":
             out.append(r"\midrule")
     out += [r"\bottomrule", r"\end{tabular}", r"\end{table}"]
-    (REV / "tab_a8c.tex").write_text("\n".join(out) + "\n", encoding="utf-8")
+    atomic_write_text(REV / "tab_a8c.tex", "\n".join(out) + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":

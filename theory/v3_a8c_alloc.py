@@ -22,6 +22,7 @@ import math
 from pathlib import Path
 
 import numpy as np
+from v3_io import atomic_open, atomic_write_text, save_fig  # noqa: E402  (atomic writes, C7)
 
 TOPIC = Path(__file__).resolve().parents[1]
 OUT = TOPIC / "results" / "v3"
@@ -173,7 +174,7 @@ def main() -> None:
                                  "min_dp_over_seeds": round(min(rec["dp_opt"]), 4),
                                  "max_dp_over_seeds": round(max(rec["dp_opt"]), 4)})
                     print(rows[-1])
-    with open(OUT / "a8c_alloc.csv", "w", newline="", encoding="utf-8") as fh:
+    with atomic_open(OUT / "a8c_alloc.csv") as fh:
         wr = csv.DictWriter(fh, fieldnames=list(rows[0]))
         wr.writeheader()
         wr.writerows(rows)
@@ -202,7 +203,7 @@ def main() -> None:
                     t2.append({"n": n, "seed": sd, "loads": lk, "c": c, "a_bar": abar,
                                "uniform": round(uni, 4) if not math.isnan(uni) else "infeasible",
                                "waterfill_opt": round(wf, 4) if not math.isnan(wf) else "infeasible"})
-    with open(OUT / "a8c_T2.csv", "w", newline="", encoding="utf-8") as fh:
+    with atomic_open(OUT / "a8c_T2.csv") as fh:
         wr = csv.DictWriter(fh, fieldnames=list(t2[0]))
         wr.writeheader()
         wr.writerows(t2)
@@ -213,7 +214,7 @@ def main() -> None:
                "all_dp_le_U": all(r["dp_le_U"] for r in rows),
                "T2_identical_max_abs_gain": max(abs(g) for g in ident_gain) if ident_gain else None,
                "headline": [r for r in rows if r["weights"] == "equal" and r["c"] == 1.0]}
-    (OUT / "a8c_summary.json").write_text(json.dumps(summary, indent=1), encoding="utf-8")
+    atomic_write_text(OUT / "a8c_summary.json", json.dumps(summary, indent=1), encoding="utf-8")
     make_figure(a.grid)
 
 
@@ -249,8 +250,8 @@ def make_figure(grid: int) -> None:
     axes[1].set_title(r"$\bar a=0.05$, $c=1$ ($\bar\beta=0.4$)")
     axes[1].legend(frameon=False, fontsize=7)
     axes[1].set_ylim(0, 1.05)
-    fig.savefig(FIG / "F_A8c.png", dpi=300)
-    fig.savefig(FIG / "F_A8c.pdf")
+    save_fig(fig, FIG / "F_A8c.png", dpi=300)
+    save_fig(fig, FIG / "F_A8c.pdf")
 
 
 if __name__ == "__main__":

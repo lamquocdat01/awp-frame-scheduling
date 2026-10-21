@@ -77,15 +77,27 @@ previously reported 0.19 gap belongs to a naive overlapping split). Notes with f
 
 ```bash
 python -m venv .venv && .venv/Scripts/pip install -r requirements-v3.txt   # (.venv/bin on Linux/macOS)
-.venv/Scripts/python theory/v3_reproduce.py          # numbers + allocation, compares Revision_v3/numbers.json key by key
+.venv/Scripts/python theory/v3_reproduce.py          # numbers + allocation + TPDS artefacts (~10 min)
 .venv/Scripts/python theory/v3_reproduce.py --full   # + adaptive-gate Monte Carlo (~40 min)
 ```
+`v3_reproduce.py` first snapshots the committed outputs, then runs every generator to completion (phase 1), and
+only then compares (phase 2): `numbers.json`, `a8a/a8c_summary.json` key by key, every regenerated CSV cell by
+cell, `numbers.tex` byte for byte, and the TPDS real-data/synthetic artefacts in `results/` regenerated from source
+by `theory/v3_regen_tpds_results.py` (sha256). Exit code 0 iff 0 differences. All v3 outputs are written
+atomically (`theory/v3_io.py`: `*.tmp` then `os.replace`).
+
+*Erratum (v3).* The TPDS snapshot of this repository (66e48c2) contained truncated copies of
+`results/metrics_summary.json`, `results/metrics_summary_REAL.json` and `results/corruption_sweep_REAL.csv`
+(the TPDS scripts wrote them non-atomically in the Windows code page). The complete files, restored in v3, are
+byte-identical to the ones regenerated from source (`theory/v3_regen_tpds_results.py`); no number changes.
 | v3 file | role |
 |---|---|
 | `theory/v3_numbers.py` | every number of the v3 paper from `results/awp_cache/*.npz` (per-video cue + event mask, derived; no video) and `energy/fit.json`; re-verifies the TPDS Table III and `results/percategory.csv` row by row |
 | `theory/v3_a8a_mc.py` | adaptive gates: ceiling check, sprinkle-and-verify against the adversary family (seeds 42-46) |
 | `theory/v3_a8c_alloc.py` | tier allocation: uniform vs exact DP vs bang-bang vs envelope bound (n = 8/32/128) |
 | `theory/v3_check_thm3_hedge.py` | audit of the Theorem 3 correction |
+| `theory/v3_regen_tpds_results.py` | regenerates the TPDS result files from source and compares them (sha256 / key by key) |
+| `theory/v3_io.py` | atomic writes used by every v3 script |
 | `theory/v3_figures.py`, `v3_fig24.py` | 300-dpi redraws at printed size |
 | `results/v3/`, `Revision_v3/` | outputs (CSV/JSON, numbers.json/tex, figures, verified refs.bib) |
 

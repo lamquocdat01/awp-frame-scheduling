@@ -22,6 +22,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 RES  = os.path.join(HERE, "..", "results")
 OUT  = os.path.join(HERE, "..", "Revision_v3", "figures")
 import json
+from v3_io import save_fig  # noqa: E402  (atomic writes, C7)
 ETA_DEP = json.load(open(os.path.join(HERE, "..", "Revision_v3", "numbers.json"), encoding="utf-8"))["eta_deployed"]
 
 TEXT_IN = 7.16
@@ -89,6 +90,6 @@ axes[0][0].legend(ncol=5, loc="lower left", frameon=True, framealpha=0.85,
                   handletextpad=0.3, borderaxespad=0.15)
 fig.tight_layout(pad=0.25, h_pad=0.3, w_pad=0.8)
 p = os.path.join(OUT, "fig24.png")
-fig.savefig(p, dpi=300, bbox_inches="tight", pad_inches=0.02)
+save_fig(fig, p, dpi=300, bbox_inches="tight", pad_inches=0.02)
 print("wrote", p)
 

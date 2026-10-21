@@ -17,6 +17,7 @@ import hashlib
 import re
 import sys
 from pathlib import Path
+from v3_io import atomic_write_text  # noqa: E402  (atomic writes, C7)
 
 TOPIC = Path(__file__).resolve().parents[1]
 REV = TOPIC / "Revision_v3"
@@ -67,7 +68,7 @@ def main() -> None:
                          f"{'IDENTICAL' if hit else 'NOT PRESENT VERBATIM'}")
         lines.append("")
         lines.append(f"{n_ok}/{len(bb)} baseline blocks present byte-identical in paper_v3.tex")
-        (REV / "INVARIANTS_CHECK_blocks.txt").write_text("\n".join(lines) + "\n", encoding="utf-8")
+        atomic_write_text(REV / "INVARIANTS_CHECK_blocks.txt", "\n".join(lines) + "\n", encoding="utf-8")
         print("\n".join(lines[-3:]))
         return
     tpl = (REV / "paper_v3_template.tex").read_text(encoding="utf-8")
@@ -81,7 +82,7 @@ def main() -> None:
         return bb[key]
 
     out = re.sub(r"^%%BASE\{([a-z]+#\d+)\}[ \t]*$", sub, tpl, flags=re.M)
-    (REV / "paper_v3.tex").write_text(out, encoding="utf-8")
+    atomic_write_text(REV / "paper_v3.tex", out, encoding="utf-8")
     missing = [k for k in bb if k not in used]
     print(f"paper_v3.tex written; inserted {len(used)} baseline blocks; not inserted: {missing}")
 

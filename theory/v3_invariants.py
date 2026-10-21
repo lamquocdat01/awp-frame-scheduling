@@ -5,6 +5,7 @@ Revision_v3/INVARIANTS_CHECK.md (together with the block check of v3_build_paper
 """
 import json
 from pathlib import Path
+from v3_io import atomic_write_text  # noqa: E402  (atomic writes, C7)
 
 TOPIC = Path(__file__).resolve().parents[1]
 REV = TOPIC / "Revision_v3"
@@ -90,7 +91,7 @@ def main():
           "121-video corpus; it is the frame count of the 77 videos with ≥2 events (all 121 videos: "
           f"{N.get('c121_frames_all121')}); v3 states the correct referent. N27 — gate CI reproduces exactly; v3 adds the paired "
           "video-level bootstrap CI of the gap. N33 — value unchanged, attribution corrected (Theorem 3)."]
-    (REV / "INVARIANTS_CHECK.md").write_text("\n".join(md) + "\n", encoding="utf-8")
+    atomic_write_text(REV / "INVARIANTS_CHECK.md", "\n".join(md) + "\n", encoding="utf-8")
     print(f"{ok}/{len(LOCKED)} locked numbers OK")
 
 

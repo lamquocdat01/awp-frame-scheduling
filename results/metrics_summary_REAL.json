@@ -73,4 +73,5 @@
       "gate_minus_periodic": -0.3451
     }
   },
-  "note": "FULL 68-vi
+  "note": "FULL 68-video real T10. CI hẹp hơn bản subset. cue=motion-diff, events từ GT."
+}

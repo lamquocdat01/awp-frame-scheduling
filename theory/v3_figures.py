@@ -17,6 +17,7 @@ import numpy as np
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 from matplotlib.patches import Patch, Rectangle  # noqa: E402
+from v3_io import save_fig  # noqa: E402  (atomic writes, C7)
 
 TOPIC = Path(__file__).resolve().parents[1]
 FIG = TOPIC / "Revision_v3" / "figures"
@@ -61,7 +62,7 @@ def sch2() -> None:
         axes[1].axvline(f, 0.12, 0.88, color=RED, lw=0.9, alpha=0.25)
     timeline(axes[1], T, onsets, W, list(range(0, T + 1, 7)),
              r"(b) HEDGE-GATE: the oblivious backbone (blue) guarantees $\lambda\beta$ whatever the cue", BLUE)
-    fig.savefig(FIG / "sch2.png", dpi=300)
+    save_fig(fig, FIG / "sch2.png", dpi=300)
 
 
 def sch5() -> None:
@@ -81,7 +82,7 @@ def sch5() -> None:
     ax.legend(handles=[Patch(color=GREEN, label="advised set $A$"), Patch(color=GRAY, label="non-advised"),
                        Patch(color=RED, label=r"events at $\eta{=}1$ (smallest $p_b$)")], loc="upper right", frameon=False)
     ax.set_ylim(0, 1.15)
-    fig.savefig(FIG / "sch5.png", dpi=300)
+    save_fig(fig, FIG / "sch5.png", dpi=300)
 
 
 def fig3() -> None:
@@ -106,7 +107,7 @@ def fig3() -> None:
         ax.set_xlim(0, 1.02)
         ax.set_ylim(0, 0.9)
     axes[0].legend(frameon=False, loc="upper left", fontsize=6.5)
-    fig.savefig(FIG / "fig3.png", dpi=300)
+    save_fig(fig, FIG / "fig3.png", dpi=300)
 
 
 if __name__ == "__main__":

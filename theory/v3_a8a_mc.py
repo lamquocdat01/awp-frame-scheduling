@@ -24,6 +24,7 @@ import zlib
 from pathlib import Path
 
 import numpy as np
+from v3_io import atomic_open, atomic_write_text, save_fig  # noqa: E402  (atomic writes, C7)
 
 TOPIC = Path(__file__).resolve().parents[1]
 OUT = TOPIC / "results" / "v3"
@@ -196,7 +197,7 @@ def main() -> None:
             rows1.append({"beta": round(beta, 4), "m": m, "gate": gate, "mean_recall": round(mu, 4),
                           "ci_lo": round(lo, 4), "ci_hi": round(hi, 4), "n_runs": len(v),
                           "ceiling_beta": round(beta, 4), "violates": bool(lo > beta + 1e-9)})
-    with open(OUT / "a8a_ceiling.csv", "w", newline="", encoding="utf-8") as fh:
+    with atomic_open(OUT / "a8a_ceiling.csv") as fh:
         w = csv.DictWriter(fh, fieldnames=list(rows1[0]))
         w.writeheader()
         w.writerows(rows1)
@@ -255,11 +256,11 @@ def main() -> None:
                           "ceiling_beta": round(beta, 4), "r_star_c_emp": round(r_star(c_emp, beta), 4),
                           "nonadaptive_r_star_1": round(r_star(1.0, beta), 4)})
             print(rows2[-1])
-    with open(OUT / "a8a_sv_worstcase.csv", "w", newline="", encoding="utf-8") as fh:
+    with atomic_open(OUT / "a8a_sv_worstcase.csv") as fh:
         w = csv.DictWriter(fh, fieldnames=list(rows2[0]))
         w.writeheader()
         w.writerows(rows2)
-    with open(OUT / "a8a_sv_family_all.csv", "w", newline="", encoding="utf-8") as fh:
+    with atomic_open(OUT / "a8a_sv_family_all.csv") as fh:
         w = csv.DictWriter(fh, fieldnames=list(rows3[0]))
         w.writeheader()
         w.writerows(rows3)
@@ -267,7 +268,7 @@ def main() -> None:
     summary["thm6_lower_respected"] = all((r["thm6_lower"] == "" or r["ci_hi"] >= r["thm6_lower"]) for r in rows2)
     summary["ceiling_respected"] = all(r["ci_lo"] <= r["ceiling_beta"] + 1e-9 for r in rows2)
     summary["delta_beta"] = {str(b): round(delta(b), 4) for b in [0.2, 0.4, 0.5, 0.8, 1.0]}
-    (OUT / "a8a_summary.json").write_text(json.dumps(summary, indent=1), encoding="utf-8")
+    atomic_write_text(OUT / "a8a_summary.json", json.dumps(summary, indent=1), encoding="utf-8")
     make_figure(rows2)
     print("thm4 violation:", summary["thm4_any_violation"], "| thm6 respected:", summary["thm6_lower_respected"],
           "| ceiling respected:", summary["ceiling_respected"])
@@ -314,8 +315,8 @@ def make_figure(rows2: list[dict]) -> None:
         axes[2].plot([b], [delta(b)], "o", ms=3.5, color="tab:red")
         axes[2].annotate(f"{delta(b):.2f}", (b, delta(b)), xytext=(4, 4), textcoords="offset points", fontsize=7)
     axes[2].set_ylim(0, 0.55)
-    fig.savefig(FIG / "F_A8a.png", dpi=300)
-    fig.savefig(FIG / "F_A8a.pdf")
+    save_fig(fig, FIG / "F_A8a.png", dpi=300)
+    save_fig(fig, FIG / "F_A8a.pdf")
 
 
 if __name__ == "__main__":

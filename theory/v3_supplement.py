@@ -7,6 +7,7 @@ outputs (no number typed by hand):
 import csv
 import json
 from pathlib import Path
+from v3_io import atomic_write_text  # noqa: E402  (atomic writes, C7)
 
 TOPIC = Path(__file__).resolve().parents[1]
 RES = TOPIC / "results"
@@ -72,7 +73,7 @@ def s1():
           r"\section*{S1.6 Numerical cross-check of the frontier}",
           r"\texttt{validate\_frontier.py} evaluates \textsc{SAT-GATE} on the canonical family ($N=2000$) for $\beta\in\{0.2,0.4,0.6,0.8,0.9\}$; the maximum deviation of its $(c,r)$ from $r^\star(c)$ is below $10^{-3}$ at every $\beta$.",
           r"\end{document}"]
-    (REV / "S1_theory_supplement.tex").write_text("\n".join(L) + "\n", encoding="utf-8")
+    atomic_write_text(REV / "S1_theory_supplement.tex", "\n".join(L) + "\n", encoding="utf-8")
 
 
 def s2():
@@ -107,7 +108,7 @@ def s2():
           r"Synthetic event streams calibrated to the measured sparse duration law (median $1$, mean $\approx6$, CV $\approx4.7$; $40$ videos of $1500$ frames, seed $42$) with permutation noise $p\in\{0,0.2,\dots,1\}$ traverse the full range of $\eta$. Simulated periodic coverage matches $\beta$ within bootstrap noise ($0.78/1.00/1.00$ at $a=0.1/0.2/0.333$); under uninformative noise HEDGE-GATE coverage is affine in $\eta$ (Pearson $r$ up to $-0.99$; Proposition~4); under adversarial advice the pure gate collapses toward $0$ while HEDGE-GATE holds its floor $\lambda\beta$ (Theorem~1$'$).",
           r"\begin{figure}[h]\centering\includegraphics[width=7.14in]{figures/fig24.png}\caption{Two failure modes (rows: $a{=}0.1,0.2,0.333$). Left, noise regime: coverage affine in $\eta$ for each $\lambda$. Right, adversarial regime: the pure gate collapses below the oblivious level while HEDGE-GATE holds $\lambda\beta$. Dashed: periodic certificate; dotted: oblivious-random level; orange: the deployed cue's error $\eta=1-\mathrm{AUC}_{\text{onset}}$ on the 121-video corpus.}\end{figure}",
           r"\end{document}"]
-    (REV / "S2_empirical_supplement.tex").write_text("\n".join(L) + "\n", encoding="utf-8")
+    atomic_write_text(REV / "S2_empirical_supplement.tex", "\n".join(L) + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":

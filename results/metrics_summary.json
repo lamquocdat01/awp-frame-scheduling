@@ -329,4 +329,18 @@
       "certificate": 1.0,
       "adversarial_pure_gate": 0.0014,
       "pa_periodic_nearest": 0.9841,
-      "pa_gateS_nearest": 0
+      "pa_gateS_nearest": 0.2841,
+      "pa_gateRF_nearest": 0.2004,
+      "pa_nearest_a": 0.2
+    },
+    "a0.333": {
+      "simulated_periodic": 1.0,
+      "certificate": 1.0,
+      "adversarial_pure_gate": 0.0103,
+      "pa_periodic_nearest": 0.991,
+      "pa_gateS_nearest": 0.4716,
+      "pa_gateRF_nearest": 0.36,
+      "pa_nearest_a": 0.333
+    }
+  }
+}
