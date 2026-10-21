@@ -1,0 +1,42 @@
+{
+  "feature_columns": [
+    "motion_density_mean",
+    "motion_density_std",
+    "component_count_mean",
+    "component_count_std",
+    "fd_mog_disagreement",
+    "knn_mog_disagreement",
+    "illumination_variance",
+    "reuse_success_rate",
+    "active_frame_rate",
+    "gate_closed_rate"
+  ],
+  "n_frames": 63748,
+  "n_train_videos": 27,
+  "resize_width_for_gating": 256,
+  "mean": {
+    "motion_density_mean": 0.03244404494762421,
+    "motion_density_std": 0.0097501240670681,
+    "component_count_mean": 2.154465436935425,
+    "component_count_std": 0.7710636854171753,
+    "fd_mog_disagreement": 0.007765688933432102,
+    "knn_mog_disagreement": 0.004416653420776129,
+    "illumination_variance": 0.12986929714679718,
+    "reuse_success_rate": 0.0,
+    "active_frame_rate": 0.0,
+    "gate_closed_rate": 0.0
+  },
+  "std": {
+    "motion_density_mean": 0.05985664576292038,
+    "motion_density_std": 0.02356562204658985,
+    "component_count_mean": 2.8429834842681885,
+    "component_count_std": 0.9406538605690002,
+    "fd_mog_disagreement": 0.013029797002673149,
+    "knn_mog_disagreement": 0.00901810359209776,
+    "illumination_variance": 0.685053288936615,
+    "reuse_success_rate": 1e-08,
+    "active_frame_rate": 1e-08,
+    "gate_closed_rate": 1e-08
+  },
+  "note": "Z-score params computed on TRAIN videos only, within temporalROI frames only. Apply to BOTH train and test to avoid leakage."
+}

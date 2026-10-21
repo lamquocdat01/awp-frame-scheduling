@@ -1,0 +1,34 @@
+{
+  "n_runs": 18,
+  "fps": 30.0,
+  "M1": {
+    "W0": 4.957106139224248,
+    "W0_se": 0.014426991747839268,
+    "kappa_W_per_a": 6.908870279989725,
+    "kappa_se": 0.0549484327721747,
+    "r2": 0.9989889393559769
+  },
+  "M2": {
+    "W0": -6.115137270513897,
+    "W0_se": 7.090083533869822,
+    "kappa_W_per_a": 6.01291112251259,
+    "kappa_se": 0.5761333175751207,
+    "gamma_W_per_C": 0.18383468435064457,
+    "gamma_se": 0.11771785938140049,
+    "r2": 0.9991303335711839
+  },
+  "kappa_disagreement_pct": -12.968244027856713,
+  "corr_Tstart_a": 0.9958183483562655,
+  "E_idle_mJ_per_frame": 165.23687130747493,
+  "kappa_mJ_per_frame_per_a": 230.2956759996575,
+  "mJ_per_invocation": 230.2956759996575,
+  "drift_flags": [],
+  "confound_tripped": true,
+  "fan_note": "PWM VARIES [96, 99, 101, 102, 103, 106, 107, 110, 111, 114, 118, 122, 126]: fan ramps with temperature, so part of the measured slope may be fan power rather than detector power",
+  "fan_step_cost_W": 0.37695276006441425,
+  "c1": {
+    "intercept": 4.938,
+    "slope": 6.9155,
+    "r2": 0.99901
+  }
+}

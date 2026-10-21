@@ -1,0 +1,5 @@
+{
+  "energy_source": "ina3221",
+  "config": "p5_calib_guard",
+  "n_videos": 26
+}

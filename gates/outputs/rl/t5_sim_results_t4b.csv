@@ -1,0 +1,4 @@
+config,sim_ef1,sim_ef1_std,sim_act,sim_energy,n
+calib_raw,0.8279,0.1995,0.5146,1602.2,26
+t4b_dqn_lam0.05_seed2,0.8963,0.1065,0.6545,1665.0,26
+t4b_dqn_lam0.20_seed2,0.8282,0.2334,0.5299,1593.0,26

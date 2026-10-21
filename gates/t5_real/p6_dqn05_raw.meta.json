@@ -1,0 +1,5 @@
+{
+  "energy_source": "ina3221",
+  "config": "p6_dqn05_raw",
+  "n_videos": 26
+}

@@ -1,0 +1,6 @@
+=== HEAT: a=0.5 (k=2), warmup 45 + measure 240 ===
+[0;93m2026-08-16 20:03:05.225167789 [W:onnxruntime:Default, device_discovery.cc:211 DiscoverDevicesForPlatform] GPU device discovery failed: device_discovery.cc:91 ReadFileContents Failed to open file: "/sys/class/drm/card1/device/vendor"[m
+SUMMARY {"tag": "ctl_heat", "detector": "yolo26s", "mode": "sweep", "k": 2, "imgsz": 640, "run": 1, "watts_mean": 8.343, "watts_std": 0.1049, "fps": 29.997, "infer_fps": 15.001, "frames": 7201, "infers": 3601, "measure_s": 240.1, "temp_start": 59.94, "temp_end": 63.66, "n_power_samples": 2397, "csv": "ctl_heat_run1.csv"}
+=== IDLE_HOT: a=0, NO warmup, NO cooldown, measure 180 ===
+SUMMARY {"tag": "idle_hot", "detector": "yolo26s", "mode": "idle", "k": 1, "imgsz": 640, "run": 1, "watts_mean": 4.9378, "watts_std": 0.0663, "fps": 29.999, "infer_fps": 0.0, "frames": 5401, "infers": 0, "measure_s": 180.0, "temp_start": 63.59, "temp_end": 59.84, "n_power_samples": 1798, "csv": "idle_hot_run1.csv"}
+=== CONTROL DONE ===

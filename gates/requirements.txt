@@ -1,0 +1,10 @@
+numpy>=1.24
+opencv-python>=4.8
+pandas>=2.0
+scikit-learn>=1.3
+pyyaml>=6.0
+tqdm>=4.66
+matplotlib>=3.7
+# Optional: RL training
+# torch>=2.0          # for DQN / PPO (T4)
+# stable-baselines3>=2.0

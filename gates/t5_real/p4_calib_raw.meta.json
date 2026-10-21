@@ -1,0 +1,5 @@
+{
+  "energy_source": "ina3221",
+  "config": "p4_calib_raw",
+  "n_videos": 26
+}

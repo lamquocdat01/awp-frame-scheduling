@@ -1,0 +1,969 @@
+{
+  "meta": {
+    "seed": 42,
+    "B": 1000,
+    "n_videos": 53,
+    "n_categories": 11,
+    "metric": "rho_max @ detection-recall>=0.90 (SI/LOCO, detection-grounded)",
+    "floor": 0.9,
+    "W_fracs": [
+      0.05,
+      0.1,
+      0.15
+    ],
+    "theta_grid": [
+      0.8,
+      0.85,
+      0.9,
+      0.92,
+      0.95,
+      0.97,
+      0.99
+    ],
+    "headline_estimator": "est_W5",
+    "note": "warmup dense-detection cost amortised into rho; K-selection label-free (pseudo_pos={TP,FP}); theta fit on train cats"
+  },
+  "brackets_pooled": {
+    "scene_agnostic": {
+      "point": 0.590689005403873,
+      "ci": [
+        0.5830967596120396,
+        0.5997586843650939
+      ],
+      "realized_recall": 0.8972853535353537
+    },
+    "periodic_robust": {
+      "point": 0.49974200128662877,
+      "ci": [
+        0.4996324375216001,
+        0.49977841070349843
+      ],
+      "realized_recall": 0.9339015151515152
+    },
+    "gate_S": {
+      "point": 0.6299476952665891,
+      "ci": [
+        0.5967106047841588,
+        0.6567773690387791
+      ],
+      "realized_recall": 0.8988566217732885
+    },
+    "gate_pi": {
+      "point": 0.6357333574609465,
+      "ci": [
+        0.608884999322781,
+        0.6566676555484809
+      ],
+      "realized_recall": 0.8960157126823795
+    },
+    "oracle_cat": {
+      "point": 0.7279557959328797,
+      "ci": [
+        0.702413811592375,
+        0.7507423864073606
+      ],
+      "realized_recall": 0.9295725108225107
+    },
+    "oracle_vid": {
+      "point": 0.8319835705194992,
+      "ci": [
+        0.7866757728180416,
+        0.8922930845054347
+      ],
+      "realized_recall": 0.9305345117845119
+    },
+    "est_W5": {
+      "point": 0.6238927718536411,
+      "ci": [
+        0.5815309458558416,
+        0.652785017552422
+      ],
+      "realized_recall": 0.9003156565656565
+    }
+  },
+  "estimator_W_sweep": {
+    "est_W5": {
+      "point": 0.6238927718536411,
+      "ci": [
+        0.5815309458558416,
+        0.652785017552422
+      ],
+      "realized_recall": 0.9003156565656565,
+      "rho_full_sweep": 0.6238927718536411
+    },
+    "est_W10": {
+      "point": 0.6191869002832309,
+      "ci": null,
+      "realized_recall": 0.8888187429854096,
+      "rho_full_sweep": 0.6191869002832309
+    },
+    "est_W15": {
+      "point": 0.5864954164677841,
+      "ci": null,
+      "realized_recall": 0.8945847362514029,
+      "rho_full_sweep": 0.5864954164677841
+    }
+  },
+  "fraction_of_oracle_gain": {
+    "vs_scene_agnostic": {
+      "point": 0.24189220365541791,
+      "ci": [
+        -0.0665578706269829,
+        0.4532717471298612
+      ]
+    },
+    "vs_robust": {
+      "point": 0.5440108068815719,
+      "ci": [
+        0.35645892213244984,
+        0.6739587803878042
+      ]
+    }
+  },
+  "estimator_vs": {
+    "est_minus_agnostic": {
+      "point": 0.02543466782578898,
+      "ci": [
+        -0.009134636355410938,
+        0.062102684034969394
+      ],
+      "ci_significant": false
+    },
+    "est_minus_robust": {
+      "point": 0.11640995149198173,
+      "ci": [
+        0.08181545172061476,
+        0.15302252706484357
+      ],
+      "ci_significant": true
+    },
+    "est_minus_gateS": {
+      "point": -0.012282405304220692,
+      "ci": [
+        -0.06071316383421073,
+        0.03969633314310938
+      ],
+      "ci_significant": false
+    },
+    "est_minus_gatePi": {
+      "point": -0.017087238070628223,
+      "ci": [
+        -0.058597622718518136,
+        0.02698669494610604
+      ],
+      "ci_significant": false
+    },
+    "est_minus_oracle_cat": {
+      "point": -0.11169811637960371,
+      "ci": [
+        -0.14889793248672845,
+        -0.07315121655109041
+      ],
+      "ci_significant": true
+    }
+  },
+  "per_category": {
+    "PTZ": {
+      "n_videos": 4,
+      "ci_reliable": false,
+      "rho_max90": {
+        "scene_agnostic": {
+          "point": 0.4996385977593061,
+          "realized_recall": 0.96875,
+          "ci": [
+            0.4993319973279893,
+            0.49975012493753124
+          ]
+        },
+        "gate_S": {
+          "point": 0.35760751716660644,
+          "realized_recall": 0.96875,
+          "ci": null
+        },
+        "gate_pi": {
+          "point": 0.4506685941452837,
+          "realized_recall": 0.9375,
+          "ci": [
+            0.2251169004676019,
+            0.5837742504409171
+          ]
+        },
+        "oracle_cat": {
+          "point": 0.6664257318395375,
+          "realized_recall": 0.96875,
+          "ci": [
+            0.665998663994656,
+            0.6666666666666667
+          ]
+        },
+        "est_W5": {
+          "point": 0.5381279363932057,
+          "realized_recall": 0.84375,
+          "ci": [
+            0.475013150973172,
+            0.7412302999491611
+          ]
+        }
+      },
+      "est_minus_agnostic": {
+        "point": 0.038489338633899584,
+        "ci": [
+          -0.0247238295633877,
+          0.24173868835790535
+        ],
+        "ci_significant": false
+      },
+      "est_minus_gatePi": {
+        "point": 0.08745934224792196,
+        "ci": [
+          -0.10875955320399766,
+          0.4428063040162684
+        ],
+        "ci_significant": false
+      }
+    },
+    "badWeather": {
+      "n_videos": 4,
+      "ci_reliable": false,
+      "rho_max90": {
+        "scene_agnostic": {
+          "point": 0.4998882931188561,
+          "realized_recall": 0.9375,
+          "ci": [
+            0.4998361193051458,
+            0.49991526859854263
+          ]
+        },
+        "gate_S": {
+          "point": 0.6530942806076854,
+          "realized_recall": 0.9375,
+          "ci": null
+        },
+        "gate_pi": {
+          "point": 0.6665549597855228,
+          "realized_recall": 0.9375,
+          "ci": [
+            0.6664853101196953,
+            0.6665972337943675
+          ]
+        },
+        "oracle_cat": {
+          "point": 0.9842493297587132,
+          "realized_recall": 0.9375,
+          "ci": [
+            0.984208134514883,
+            0.9843027098479842
+          ]
+        },
+        "est_W5": {
+          "point": 0.596458891867739,
+          "realized_recall": 0.9375,
+          "ci": [
+            0.475005680527153,
+            0.7797140721360494
+          ]
+        }
+      },
+      "est_minus_agnostic": {
+        "point": 0.09657059874888296,
+        "ci": [
+          -0.024880708929788664,
+          0.27980751261446457
+        ],
+        "ci_significant": false
+      },
+      "est_minus_gatePi": {
+        "point": -0.07009606791778378,
+        "ci": [
+          -0.1915473755964553,
+          0.11310969912165958
+        ],
+        "ci_significant": false
+      }
+    },
+    "baseline": {
+      "n_videos": 4,
+      "ci_reliable": false,
+      "rho_max90": {
+        "scene_agnostic": {
+          "point": 0.6662134602311353,
+          "realized_recall": 1.0,
+          "ci": [
+            0.666000570939195,
+            0.6663743971942131
+          ]
+        },
+        "gate_S": {
+          "point": 0.6662134602311353,
+          "realized_recall": 1.0,
+          "ci": null
+        },
+        "gate_pi": {
+          "point": 0.6662134602311353,
+          "realized_recall": 1.0,
+          "ci": [
+            0.666000570939195,
+            0.6663743971942131
+          ]
+        },
+        "oracle_cat": {
+          "point": 0.9836845683208701,
+          "realized_recall": 1.0,
+          "ci": [
+            0.9834773767158109,
+            0.9837856891082128
+          ]
+        },
+        "est_W5": {
+          "point": 0.6886471787899389,
+          "realized_recall": 1.0,
+          "ci": [
+            0.6334206586826348,
+            0.7923378319547235
+          ]
+        }
+      },
+      "est_minus_agnostic": {
+        "point": 0.022433718558803606,
+        "ci": [
+          -0.03293413173652693,
+          0.12625163256421412
+        ],
+        "ci_significant": false
+      },
+      "est_minus_gatePi": {
+        "point": 0.022433718558803606,
+        "ci": [
+          -0.03293413173652693,
+          0.12625163256421412
+        ],
+        "ci_significant": false
+      }
+    },
+    "cameraJitter": {
+      "n_videos": 4,
+      "ci_reliable": false,
+      "rho_max90": {
+        "scene_agnostic": {
+          "point": 0.4993618379068283,
+          "realized_recall": 1.0,
+          "ci": [
+            0.49862448418156813,
+            0.4996385977593061
+          ]
+        },
+        "gate_S": {
+          "point": 0.4652201659221442,
+          "realized_recall": 1.0,
+          "ci": null
+        },
+        "gate_pi": {
+          "point": 0.4368219527760051,
+          "realized_recall": 1.0,
+          "ci": [
+            0.2901119402985075,
+            0.5729023383768913
+          ]
+        },
+        "oracle_cat": {
+          "point": 0.937141033822591,
+          "realized_recall": 1.0,
+          "ci": [
+            0.9356499356499357,
+            0.937454412837345
+          ]
+        },
+        "est_W5": {
+          "point": 0.6483726866624122,
+          "realized_recall": 1.0,
+          "ci": [
+            0.47553816046966735,
+            0.7690639681966028
+          ]
+        }
+      },
+      "est_minus_agnostic": {
+        "point": 0.1490108487555839,
+        "ci": [
+          -0.023483365949119372,
+          0.26942537043729675
+        ],
+        "ci_significant": false
+      },
+      "est_minus_gatePi": {
+        "point": 0.2115507338864071,
+        "ci": [
+          -0.09697386519944973,
+          0.29841488628532054
+        ],
+        "ci_significant": false
+      }
+    },
+    "dynamicBackground": {
+      "n_videos": 6,
+      "ci_reliable": true,
+      "rho_max90": {
+        "scene_agnostic": {
+          "point": 0.4998870226707841,
+          "realized_recall": 1.0,
+          "ci": [
+            0.4997008495871724,
+            0.4999779648318716
+          ]
+        },
+        "gate_S": {
+          "point": 0.6603148301574151,
+          "realized_recall": 1.0,
+          "ci": null
+        },
+        "gate_pi": {
+          "point": 0.6613692852300972,
+          "realized_recall": 1.0,
+          "ci": [
+            0.6537661328469434,
+            0.6663943037235905
+          ]
+        },
+        "oracle_cat": {
+          "point": 0.9685169842584921,
+          "realized_recall": 0.9523809523809523,
+          "ci": [
+            0.9680433563819847,
+            0.9686469960751242
+          ]
+        },
+        "est_W5": {
+          "point": 0.6206221284928825,
+          "realized_recall": 1.0,
+          "ci": [
+            0.47500359460256597,
+            0.7472123062442603
+          ]
+        }
+      },
+      "est_minus_agnostic": {
+        "point": 0.12073510582209834,
+        "ci": [
+          -0.024824923587551367,
+          0.2472303542130041
+        ],
+        "ci_significant": false
+      },
+      "est_minus_gatePi": {
+        "point": -0.04074715673721474,
+        "ci": [
+          -0.19130863180270286,
+          0.0842071880171084
+        ],
+        "ci_significant": false
+      }
+    },
+    "intermittentObjectMotion": {
+      "n_videos": 6,
+      "ci_reliable": true,
+      "rho_max90": {
+        "scene_agnostic": {
+          "point": 0.6665015275369499,
+          "realized_recall": 0.8444444444444444,
+          "ci": [
+            0.6663848029306046,
+            0.666609397818057
+          ]
+        },
+        "gate_S": {
+          "point": 0.6665015275369499,
+          "realized_recall": 0.8444444444444444,
+          "ci": null
+        },
+        "gate_pi": {
+          "point": 0.6665015275369499,
+          "realized_recall": 0.8444444444444444,
+          "ci": [
+            0.6663848029306046,
+            0.666609397818057
+          ]
+        },
+        "oracle_cat": {
+          "point": 0.499793576087854,
+          "realized_recall": 0.9777777777777777,
+          "ci": [
+            0.4996940648582501,
+            0.4999004083215889
+          ]
+        },
+        "est_W5": {
+          "point": 0.633556271158451,
+          "realized_recall": 0.8444444444444444,
+          "ci": [
+            0.6334574295888638,
+            0.6336759300867116
+          ]
+        }
+      },
+      "est_minus_agnostic": {
+        "point": -0.03294525637849888,
+        "ci": [
+          -0.033052332860362243,
+          -0.032820322640459865
+        ],
+        "ci_significant": true
+      },
+      "est_minus_gatePi": {
+        "point": -0.03294525637849888,
+        "ci": [
+          -0.033052332860362243,
+          -0.032820322640459865
+        ],
+        "ci_significant": true
+      }
+    },
+    "lowFramerate": {
+      "n_videos": 4,
+      "ci_reliable": false,
+      "rho_max90": {
+        "scene_agnostic": {
+          "point": 0.6666026133743275,
+          "realized_recall": 0.8888888888888888,
+          "ci": [
+            0.6663893510815309,
+            0.6666666666666667
+          ]
+        },
+        "gate_S": {
+          "point": 0.749423520368947,
+          "realized_recall": 0.8395061728395061,
+          "ci": null
+        },
+        "gate_pi": {
+          "point": 0.748847040737894,
+          "realized_recall": 0.8395061728395061,
+          "ci": [
+            0.7462562396006656,
+            0.7496251874062969
+          ]
+        },
+        "oracle_cat": {
+          "point": 0.4996156802459646,
+          "realized_recall": 1.0,
+          "ci": [
+            0.49916805324459235,
+            0.49975012493753124
+          ]
+        },
+        "est_W5": {
+          "point": 0.6337432744043043,
+          "realized_recall": 0.8888888888888888,
+          "ci": [
+            0.6335282651072125,
+            0.6341324200913242
+          ]
+        }
+      },
+      "est_minus_agnostic": {
+        "point": -0.03285933897002313,
+        "ci": [
+          -0.03298350824587715,
+          -0.032445923460898585
+        ],
+        "ci_significant": false
+      },
+      "est_minus_gatePi": {
+        "point": -0.11510376633358965,
+        "ci": [
+          -0.11594202898550732,
+          -0.11231281198003329
+        ],
+        "ci_significant": false
+      }
+    },
+    "nightVideos": {
+      "n_videos": 6,
+      "ci_reliable": true,
+      "rho_max90": {
+        "scene_agnostic": {
+          "point": 0.6665038665038665,
+          "realized_recall": 0.875,
+          "ci": [
+            0.6662488605287147,
+            0.6666299377444769
+          ]
+        },
+        "gate_S": {
+          "point": 0.6665038665038665,
+          "realized_recall": 0.875,
+          "ci": null
+        },
+        "gate_pi": {
+          "point": 0.6665038665038665,
+          "realized_recall": 0.875,
+          "ci": [
+            0.6662488605287147,
+            0.6666299377444769
+          ]
+        },
+        "oracle_cat": {
+          "point": 0.49979649979649976,
+          "realized_recall": 0.9,
+          "ci": [
+            0.49968148808765445,
+            0.4998745398415485
+          ]
+        },
+        "est_W5": {
+          "point": 0.6943426943426944,
+          "realized_recall": 0.9,
+          "ci": [
+            0.6334709740102016,
+            0.8022181146025877
+          ]
+        }
+      },
+      "est_minus_agnostic": {
+        "point": 0.02783882783882785,
+        "ci": [
+          -0.03308552295556444,
+          0.13574542284219704
+        ],
+        "ci_significant": false
+      },
+      "est_minus_gatePi": {
+        "point": 0.02783882783882785,
+        "ci": [
+          -0.03308552295556444,
+          0.13574542284219704
+        ],
+        "ci_significant": false
+      }
+    },
+    "shadow": {
+      "n_videos": 6,
+      "ci_reliable": true,
+      "rho_max90": {
+        "scene_agnostic": {
+          "point": 0.49982275788727404,
+          "realized_recall": 1.0,
+          "ci": [
+            0.4996552590320744,
+            0.49990269085296657
+          ]
+        },
+        "gate_S": {
+          "point": 0.6282169443459766,
+          "realized_recall": 1.0,
+          "ci": null
+        },
+        "gate_pi": {
+          "point": 0.6132577100319037,
+          "realized_recall": 1.0,
+          "ci": [
+            0.5170448531653634,
+            0.647655634357762
+          ]
+        },
+        "oracle_cat": {
+          "point": 0.9685926976249557,
+          "realized_recall": 1.0,
+          "ci": [
+            0.9683391467668366,
+            0.9686972662841714
+          ]
+        },
+        "est_W5": {
+          "point": 0.47507975895072674,
+          "realized_recall": 1.0,
+          "ci": [
+            0.4749871781837272,
+            0.47526881720430103
+          ]
+        }
+      },
+      "est_minus_agnostic": {
+        "point": -0.0247429989365473,
+        "ci": [
+          -0.024914958168612666,
+          -0.024399740428293293
+        ],
+        "ci_significant": true
+      },
+      "est_minus_gatePi": {
+        "point": -0.13817795108117692,
+        "ci": [
+          -0.17267533490937736,
+          -0.041771764249356386
+        ],
+        "ci_significant": true
+      }
+    },
+    "thermal": {
+      "n_videos": 5,
+      "ci_reliable": true,
+      "rho_max90": {
+        "scene_agnostic": {
+          "point": 0.6665743561340349,
+          "realized_recall": 0.8888888888888888,
+          "ci": [
+            0.6665029814100316,
+            0.6666064438422161
+          ]
+        },
+        "gate_S": {
+          "point": 0.6665743561340349,
+          "realized_recall": 0.8888888888888888,
+          "ci": null
+        },
+        "gate_pi": {
+          "point": 0.6665743561340349,
+          "realized_recall": 0.8888888888888888,
+          "ci": [
+            0.6665029814100316,
+            0.6666064438422161
+          ]
+        },
+        "oracle_cat": {
+          "point": 0.4998615342010524,
+          "realized_recall": 0.8888888888888888,
+          "ci": [
+            0.49973835688121404,
+            0.4999000299521852
+          ]
+        },
+        "est_W5": {
+          "point": 0.700470783716422,
+          "realized_recall": 0.8888888888888888,
+          "ci": [
+            0.6333197887037789,
+            0.7579405336123369
+          ]
+        }
+      },
+      "est_minus_agnostic": {
+        "point": 0.03389642758238709,
+        "ci": [
+          -0.03322054752383885,
+          0.09133939198189019
+        ],
+        "ci_significant": false
+      },
+      "est_minus_gatePi": {
+        "point": 0.03389642758238709,
+        "ci": [
+          -0.03322054752383885,
+          0.09133939198189019
+        ],
+        "ci_significant": false
+      }
+    },
+    "turbulence": {
+      "n_videos": 4,
+      "ci_reliable": false,
+      "rho_max90": {
+        "scene_agnostic": {
+          "point": 0.6665847263192396,
+          "realized_recall": 0.4666666666666667,
+          "ci": [
+            0.6665591744598516,
+            0.666626036079961
+          ]
+        },
+        "gate_S": {
+          "point": 0.7497541789577188,
+          "realized_recall": 0.5333333333333333,
+          "ci": null
+        },
+        "gate_pi": {
+          "point": 0.7497541789577188,
+          "realized_recall": 0.5333333333333333,
+          "ci": [
+            0.749634324719649,
+            0.7498125468632841
+          ]
+        },
+        "oracle_cat": {
+          "point": 0.4998361193051458,
+          "realized_recall": 0.6,
+          "ci": [
+            0.499756216479766,
+            0.49987503124218946
+          ]
+        },
+        "est_W5": {
+          "point": 0.633398885611275,
+          "realized_recall": 0.6,
+          "ci": [
+            0.6333416645838541,
+            0.6335933690882496
+          ]
+        }
+      },
+      "est_minus_agnostic": {
+        "point": -0.0331858407079646,
+        "ci": [
+          -0.03324168957760554,
+          -0.03303266699171137
+        ],
+        "ci_significant": false
+      },
+      "est_minus_gatePi": {
+        "point": -0.11635529334644379,
+        "ci": [
+          -0.11647088227943003,
+          -0.11604095563139938
+        ],
+        "ci_significant": false
+      }
+    }
+  },
+  "label_leakage_check": {
+    "structural": "estimate_K consumes only pseudo_pos={TP,FP} (detector fire/no-fire); no is_tp/gt/events arguments",
+    "theta_fit": "theta fit on TRAIN categories only; held-out labels never used for K",
+    "n_K_decisions_audited": 159,
+    "permutation_test_K_changed": 0,
+    "permutation_test_pass": true,
+    "cheat_control_K_differs_from_honest": 27,
+    "cheat_control_frac_differ": 0.17,
+    "pseudo_pos_is_label_free": true
+  },
+  "config_log": {
+    "PTZ": {
+      "Kagn": 2,
+      "Krob": 2,
+      "Korc_cat": 3,
+      "theta_star": {
+        "0.05": 0.8,
+        "0.1": 0.8,
+        "0.15": 0.8
+      },
+      "gateS_K": 3,
+      "gatePi_K": 3
+    },
+    "badWeather": {
+      "Kagn": 2,
+      "Krob": 2,
+      "Korc_cat": 64,
+      "theta_star": {
+        "0.05": 0.8,
+        "0.1": 0.9,
+        "0.15": 0.85
+      },
+      "gateS_K": 3,
+      "gatePi_K": 3
+    },
+    "baseline": {
+      "Kagn": 3,
+      "Krob": 2,
+      "Korc_cat": 64,
+      "theta_star": {
+        "0.05": 0.85,
+        "0.1": 0.9,
+        "0.15": 0.85
+      },
+      "gateS_K": 3,
+      "gatePi_K": 3
+    },
+    "cameraJitter": {
+      "Kagn": 2,
+      "Krob": 2,
+      "Korc_cat": 16,
+      "theta_star": {
+        "0.05": 0.8,
+        "0.1": 0.9,
+        "0.15": 0.85
+      },
+      "gateS_K": 3,
+      "gatePi_K": 3
+    },
+    "dynamicBackground": {
+      "Kagn": 2,
+      "Krob": 2,
+      "Korc_cat": 32,
+      "theta_star": {
+        "0.05": 0.8,
+        "0.1": 0.9,
+        "0.15": 0.85
+      },
+      "gateS_K": 3,
+      "gatePi_K": 3
+    },
+    "intermittentObjectMotion": {
+      "Kagn": 3,
+      "Krob": 2,
+      "Korc_cat": 2,
+      "theta_star": {
+        "0.05": 0.8,
+        "0.1": 0.9,
+        "0.15": 0.85
+      },
+      "gateS_K": 3,
+      "gatePi_K": 3
+    },
+    "lowFramerate": {
+      "Kagn": 3,
+      "Krob": 2,
+      "Korc_cat": 2,
+      "theta_star": {
+        "0.05": 0.85,
+        "0.1": 0.8,
+        "0.15": 0.8
+      },
+      "gateS_K": 4,
+      "gatePi_K": 4
+    },
+    "nightVideos": {
+      "Kagn": 3,
+      "Krob": 2,
+      "Korc_cat": 2,
+      "theta_star": {
+        "0.05": 0.8,
+        "0.1": 0.9,
+        "0.15": 0.85
+      },
+      "gateS_K": 3,
+      "gatePi_K": 3
+    },
+    "shadow": {
+      "Kagn": 2,
+      "Krob": 2,
+      "Korc_cat": 32,
+      "theta_star": {
+        "0.05": 0.8,
+        "0.1": 0.9,
+        "0.15": 0.85
+      },
+      "gateS_K": 3,
+      "gatePi_K": 3
+    },
+    "thermal": {
+      "Kagn": 3,
+      "Krob": 2,
+      "Korc_cat": 2,
+      "theta_star": {
+        "0.05": 0.85,
+        "0.1": 0.9,
+        "0.15": 0.85
+      },
+      "gateS_K": 3,
+      "gatePi_K": 3
+    },
+    "turbulence": {
+      "Kagn": 3,
+      "Krob": 2,
+      "Korc_cat": 2,
+      "theta_star": {
+        "0.05": 0.8,
+        "0.1": 0.9,
+        "0.15": 0.85
+      },
+      "gateS_K": 4,
+      "gatePi_K": 4
+    }
+  },
+  "verdict": {
+    "decision": "NO-GO",
+    "fraction_of_oracle_gain_vs_agnostic": 0.24189220365541791,
+    "CIsig_beats_scene_agnostic": false,
+    "CIsig_beats_gate_S": false,
+    "CIsig_beats_gate_pi": false,
+    "meaningful_fraction_ge_0.40": false,
+    "criterion": "GO iff fraction>=0.40 AND CI-beats scene-agnostic AND CI-beats BOTH gates"
+  }
+}

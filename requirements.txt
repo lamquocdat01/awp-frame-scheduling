@@ -1,0 +1,10 @@
+# Core (theory + figures): reproduces every result/figure in the paper
+numpy
+matplotlib
+scipy
+# Real-data pipeline (theory/awp_real_data.py, awp_percategory.py)
+opencv-python
+# Gate implementations under gates/ (S/RF/DQN) and evaluation/analysis
+scikit-learn      # random-forest CALIB gate (RF)
+torch             # DQN reinforcement-learning gate
+pandas

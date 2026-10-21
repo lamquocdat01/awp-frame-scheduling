@@ -1,0 +1,85 @@
+# Secrets & credentials — NEVER commit
+.env
+*.env
+*credentials*
+*secret*
+*password*
+*api_key*
+*.pem
+*.key
+
+# Dataset files — do not redistribute
+datasets/
+*.mp4
+*.avi
+*.mkv
+*.mov
+*.wmv
+*.flv
+*.jpg
+*.jpeg
+*.png
+*.bmp
+*.tiff
+# Exception: results figures are OK
+!results/**/*.png
+!results/**/*.jpg
+
+# Large binaries / model weights
+*.pt
+*.pth
+*.onnx
+*.engine
+*.trt
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.mypy_cache/
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+venv/
+.venv/
+env/
+
+# Outputs & logs (too large for repo)
+logs/
+*.log
+*.out
+
+# Notebook checkpoints
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/settings.json
+.idea/
+
+# Splits are committed (small JSON); npz caches are not
+*.npz
+*.pkl
+*.pickle
+# Exception: trained policy models can be committed if small
+!results/**/*.pkl
+
+# --- Paper artifacts: MUST be committed (overrides the generic rules above) ---
+# features .npz, calibration .pkl, RL policies .pt/.npz and result CSV/PNG are the
+# reproducibility artifacts of the paper, not incidental large binaries.
+!data/
+!data/**
+!models/
+!models/**
+!outputs/
+!outputs/**
+!splits/**
+!report/**
+!t5_real/**

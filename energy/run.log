@@ -1,0 +1,73 @@
+[1/18] a=0.0000 k=1 run=1  (pre-temp 59.8C)
+  NO JSON SUMMARY
+SUMMARY {"tag": "awp_a0p000", "detector": "yolo26s", "mode": "idle", "k": 1, "imgsz": 640, "run": 1, "watts_mean": 4.9225, "watts_std": 0.0549, "fps": 30.0, "infer_fps": 0.0, "frames": 9001, "infers": 0, "measure_s": 300.0, "temp_start": 60.22, "temp_end": 60.31, "n_power_samples": 2996, "csv": "awp_a0p000_run1.csv"}
+
+[2/18] a=0.0000 k=1 run=2  (pre-temp 60.0C)
+  NO JSON SUMMARY
+SUMMARY {"tag": "awp_a0p000", "detector": "yolo26s", "mode": "idle", "k": 1, "imgsz": 640, "run": 2, "watts_mean": 4.9429, "watts_std": 0.0737, "fps": 30.0, "infer_fps": 0.0, "frames": 9001, "infers": 0, "measure_s": 300.0, "temp_start": 60.25, "temp_end": 60.56, "n_power_samples": 2996, "csv": "awp_a0p000_run2.csv"}
+
+[3/18] a=0.0000 k=1 run=3  (pre-temp 60.0C)
+  NO JSON SUMMARY
+SUMMARY {"tag": "awp_a0p000", "detector": "yolo26s", "mode": "idle", "k": 1, "imgsz": 640, "run": 3, "watts_mean": 4.9163, "watts_std": 0.03, "fps": 30.0, "infer_fps": 0.0, "frames": 9001, "infers": 0, "measure_s": 300.0, "temp_start": 60.16, "temp_end": 60.53, "n_power_samples": 2996, "csv": "awp_a0p000_run3.csv"}
+
+[4/18] a=0.0500 k=20 run=1  (pre-temp 59.9C)
+  NO JSON SUMMARY
+SUMMARY {"tag": "awp_a0p050", "detector": "yolo26s", "mode": "sweep", "k": 20, "imgsz": 640, "run": 1, "watts_mean": 5.28, "watts_std": 0.1473, "fps": 29.989, "infer_fps": 1.506, "frames": 4501, "infers": 226, "measure_s": 150.1, "temp_start": 60.31, "temp_end": 61.06, "n_power_samples": 1499, "csv": "awp_a0p050_run1.csv"}
+
+[5/18] a=0.0500 k=20 run=2  (pre-temp 60.0C)
+  NO JSON SUMMARY
+SUMMARY {"tag": "awp_a0p050", "detector": "yolo26s", "mode": "sweep", "k": 20, "imgsz": 640, "run": 2, "watts_mean": 5.2734, "watts_std": 0.1455, "fps": 29.991, "infer_fps": 1.506, "frames": 4501, "infers": 226, "measure_s": 150.1, "temp_start": 60.53, "temp_end": 60.97, "n_power_samples": 1499, "csv": "awp_a0p050_run2.csv"}
+
+[6/18] a=0.0500 k=20 run=3  (pre-temp 60.1C)
+  NO JSON SUMMARY
+SUMMARY {"tag": "awp_a0p050", "detector": "yolo26s", "mode": "sweep", "k": 20, "imgsz": 640, "run": 3, "watts_mean": 5.2906, "watts_std": 0.1505, "fps": 29.989, "infer_fps": 1.506, "frames": 4501, "infers": 226, "measure_s": 150.1, "temp_start": 60.56, "temp_end": 61.06, "n_power_samples": 1499, "csv": "awp_a0p050_run3.csv"}
+
+[7/18] a=0.1000 k=10 run=1  (pre-temp 60.0C)
+  NO JSON SUMMARY
+SUMMARY {"tag": "awp_a0p100", "detector": "yolo26s", "mode": "sweep", "k": 10, "imgsz": 640, "run": 1, "watts_mean": 5.6424, "watts_std": 0.1307, "fps": 29.991, "infer_fps": 3.005, "frames": 4501, "infers": 451, "measure_s": 150.1, "temp_start": 60.78, "temp_end": 61.53, "n_power_samples": 1499, "csv": "awp_a0p100_run1.csv"}
+
+[8/18] a=0.1000 k=10 run=2  (pre-temp 60.0C)
+  NO JSON SUMMARY
+SUMMARY {"tag": "awp_a0p100", "detector": "yolo26s", "mode": "sweep", "k": 10, "imgsz": 640, "run": 2, "watts_mean": 5.6562, "watts_std": 0.1354, "fps": 29.992, "infer_fps": 3.005, "frames": 4501, "infers": 451, "measure_s": 150.1, "temp_start": 60.62, "temp_end": 61.41, "n_power_samples": 1499, "csv": "awp_a0p100_run2.csv"}
+
+[9/18] a=0.1000 k=10 run=3  (pre-temp 60.0C)
+  NO JSON SUMMARY
+SUMMARY {"tag": "awp_a0p100", "detector": "yolo26s", "mode": "sweep", "k": 10, "imgsz": 640, "run": 3, "watts_mean": 5.6475, "watts_std": 0.13, "fps": 29.992, "infer_fps": 3.005, "frames": 4501, "infers": 451, "measure_s": 150.1, "temp_start": 60.69, "temp_end": 61.53, "n_power_samples": 1499, "csv": "awp_a0p100_run3.csv"}
+
+[10/18] a=0.2000 k=5 run=1  (pre-temp 60.0C)
+  NO JSON SUMMARY
+SUMMARY {"tag": "awp_a0p200", "detector": "yolo26s", "mode": "sweep", "k": 5, "imgsz": 640, "run": 1, "watts_mean": 6.3936, "watts_std": 0.0905, "fps": 29.99, "infer_fps": 6.003, "frames": 4501, "infers": 901, "measure_s": 150.1, "temp_start": 61.25, "temp_end": 62.62, "n_power_samples": 1499, "csv": "awp_a0p200_run1.csv"}
+
+[11/18] a=0.2000 k=5 run=2  (pre-temp 60.1C)
+  NO JSON SUMMARY
+SUMMARY {"tag": "awp_a0p200", "detector": "yolo26s", "mode": "sweep", "k": 5, "imgsz": 640, "run": 2, "watts_mean": 6.4073, "watts_std": 0.0984, "fps": 29.992, "infer_fps": 6.004, "frames": 4501, "infers": 901, "measure_s": 150.1, "temp_start": 61.28, "temp_end": 62.53, "n_power_samples": 1498, "csv": "awp_a0p200_run2.csv"}
+
+[12/18] a=0.2000 k=5 run=3  (pre-temp 60.3C)
+  NO JSON SUMMARY
+SUMMARY {"tag": "awp_a0p200", "detector": "yolo26s", "mode": "sweep", "k": 5, "imgsz": 640, "run": 3, "watts_mean": 6.3993, "watts_std": 0.0989, "fps": 29.992, "infer_fps": 6.004, "frames": 4501, "infers": 901, "measure_s": 150.1, "temp_start": 61.25, "temp_end": 62.53, "n_power_samples": 1499, "csv": "awp_a0p200_run3.csv"}
+
+[13/18] a=0.3333 k=3 run=1  (pre-temp 60.2C)
+  NO JSON SUMMARY
+SUMMARY {"tag": "awp_a0p333", "detector": "yolo26s", "mode": "sweep", "k": 3, "imgsz": 640, "run": 1, "watts_mean": 7.2927, "watts_std": 0.0742, "fps": 29.994, "infer_fps": 10.002, "frames": 4501, "infers": 1501, "measure_s": 150.1, "temp_start": 61.75, "temp_end": 63.75, "n_power_samples": 1498, "csv": "awp_a0p333_run1.csv"}
+
+[14/18] a=0.3333 k=3 run=2  (pre-temp 60.4C)
+  NO JSON SUMMARY
+SUMMARY {"tag": "awp_a0p333", "detector": "yolo26s", "mode": "sweep", "k": 3, "imgsz": 640, "run": 2, "watts_mean": 7.294, "watts_std": 0.0781, "fps": 29.992, "infer_fps": 10.002, "frames": 4501, "infers": 1501, "measure_s": 150.1, "temp_start": 62.0, "temp_end": 63.69, "n_power_samples": 1498, "csv": "awp_a0p333_run2.csv"}
+
+[15/18] a=0.3333 k=3 run=3  (pre-temp 60.5C)
+  NO JSON SUMMARY
+SUMMARY {"tag": "awp_a0p333", "detector": "yolo26s", "mode": "sweep", "k": 3, "imgsz": 640, "run": 3, "watts_mean": 7.2987, "watts_std": 0.0747, "fps": 29.993, "infer_fps": 10.002, "frames": 4501, "infers": 1501, "measure_s": 150.1, "temp_start": 61.88, "temp_end": 63.72, "n_power_samples": 1498, "csv": "awp_a0p333_run3.csv"}
+
+[16/18] a=0.5000 k=2 run=1  (pre-temp 60.6C)
+  NO JSON SUMMARY
+SUMMARY {"tag": "awp_a0p500", "detector": "yolo26s", "mode": "sweep", "k": 2, "imgsz": 640, "run": 1, "watts_mean": 8.3736, "watts_std": 0.0667, "fps": 29.996, "infer_fps": 15.001, "frames": 4501, "infers": 2251, "measure_s": 150.1, "temp_start": 62.62, "temp_end": 65.22, "n_power_samples": 1498, "csv": "awp_a0p500_run1.csv"}
+
+[17/18] a=0.5000 k=2 run=2  (pre-temp 60.7C)
+  NO JSON SUMMARY
+SUMMARY {"tag": "awp_a0p500", "detector": "yolo26s", "mode": "sweep", "k": 2, "imgsz": 640, "run": 2, "watts_mean": 8.3642, "watts_std": 0.0677, "fps": 29.999, "infer_fps": 14.999, "frames": 4500, "infers": 2250, "measure_s": 150.0, "temp_start": 62.59, "temp_end": 65.06, "n_power_samples": 1498, "csv": "awp_a0p500_run2.csv"}
+
+[18/18] a=0.5000 k=2 run=3  (pre-temp 60.5C)
+  NO JSON SUMMARY
+SUMMARY {"tag": "awp_a0p500", "detector": "yolo26s", "mode": "sweep", "k": 2, "imgsz": 640, "run": 3, "watts_mean": 8.3592, "watts_std": 0.0685, "fps": 29.995, "infer_fps": 15.001, "frames": 4501, "infers": 2251, "measure_s": 150.1, "temp_start": 62.69, "temp_end": 64.84, "n_power_samples": 1498, "csv": "awp_a0p500_run3.csv"}
+
+DONE 0 runs

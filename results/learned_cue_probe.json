@@ -1,0 +1,58 @@
+{
+  "n_videos": 53,
+  "n_cats": 11,
+  "onset_auc": {
+    "within": {
+      "baseline": 0.3994,
+      "learned": 0.6009
+    },
+    "cross": {
+      "baseline": 0.3994,
+      "learned": 0.6075
+    }
+  },
+  "gate_vs_periodic": [
+    {
+      "a": 0.1,
+      "learned_gate": 0.4128,
+      "gate_ci": [
+        0.3119,
+        0.5091
+      ],
+      "periodic": 0.8,
+      "periodic_ci": [
+        0.8,
+        0.8
+      ],
+      "gap": -0.3872
+    },
+    {
+      "a": 0.2,
+      "learned_gate": 0.5416,
+      "gate_ci": [
+        0.4351,
+        0.6438
+      ],
+      "periodic": 1.0,
+      "periodic_ci": [
+        1.0,
+        1.0
+      ],
+      "gap": -0.4584
+    },
+    {
+      "a": 0.333,
+      "learned_gate": 0.7087,
+      "gate_ci": [
+        0.6066,
+        0.8019
+      ],
+      "periodic": 1.0,
+      "periodic_ci": [
+        1.0,
+        1.0
+      ],
+      "gap": -0.2913
+    }
+  ]
+}

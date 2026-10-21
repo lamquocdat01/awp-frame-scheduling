@@ -1,0 +1,76 @@
+{
+  "source": "REAL video FULL (BMC synth1/2 + LASIESTA) @ THS Programing/06.6 ASMAG Project/datasets",
+  "config": {
+    "seed": 42,
+    "W": 7,
+    "B": 1000,
+    "downscale": [
+      64,
+      48
+    ],
+    "max_frames": null,
+    "n_videos_selected": 121,
+    "n_videos_with_events": 77,
+    "n_events": 791,
+    "n_frames": 131325
+  },
+  "cue_onset_auc": {
+    "mean": 0.4546,
+    "min": 0.1442,
+    "max": 0.8067,
+    "by_dataset": {
+      "BMC": 0.3456,
+      "LASIESTA": 0.4629,
+      "CDnet": 0.5055
+    },
+    "pa_reference": [
+      0.49,
+      0.79
+    ]
+  },
+  "eta_deployed": 0.5454,
+  "deployed_gate_vs_periodic": {
+    "a0.100": {
+      "real_cue_gate": 0.2382,
+      "gate_ci": [
+        0.1915,
+        0.2905
+      ],
+      "periodic": 0.7963,
+      "periodic_ci": [
+        0.7604,
+        0.831
+      ],
+      "certificate": 0.8,
+      "gate_minus_periodic": -0.5581
+    },
+    "a0.200": {
+      "real_cue_gate": 0.4706,
+      "gate_ci": [
+        0.4019,
+        0.5336
+      ],
+      "periodic": 1.0,
+      "periodic_ci": [
+        1.0,
+        1.0
+      ],
+      "certificate": 1.0,
+      "gate_minus_periodic": -0.5294
+    },
+    "a0.333": {
+      "real_cue_gate": 0.6549,
+      "gate_ci": [
+        0.5938,
+        0.714
+      ],
+      "periodic": 1.0,
+      "periodic_ci": [
+        1.0,
+        1.0
+      ],
+      "certificate": 1.0,
+      "gate_minus_periodic": -0.3451
+    }
+  },
+  "note": "FULL 68-vi

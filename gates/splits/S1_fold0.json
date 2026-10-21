@@ -1,0 +1,232 @@
+{
+  "scheme": "S1",
+  "fold": 0,
+  "seed": 42,
+  "test_size": 0.4,
+  "dataset": "CDnet2014",
+  "dataset_root": "D:\\THS Programing\\06.6 ASMAG Project\\dataset cdnet2014\\archive\\dataset",
+  "n_train": 27,
+  "n_test": 26,
+  "train": [
+    "PTZ/continuousPan",
+    "PTZ/zoomInZoomOut",
+    "badWeather/blizzard",
+    "badWeather/skating",
+    "baseline/PETS2006",
+    "baseline/office",
+    "cameraJitter/badminton",
+    "cameraJitter/traffic",
+    "dynamicBackground/boats",
+    "dynamicBackground/canoe",
+    "dynamicBackground/fountain02",
+    "intermittentObjectMotion/parking",
+    "intermittentObjectMotion/streetLight",
+    "intermittentObjectMotion/tramstop",
+    "lowFramerate/port_0_17fps",
+    "lowFramerate/tunnelExit_0_35fps",
+    "nightVideos/fluidHighway",
+    "nightVideos/streetCornerAtNight",
+    "nightVideos/winterStreet",
+    "shadow/backdoor",
+    "shadow/bungalows",
+    "shadow/busStation",
+    "thermal/corridor",
+    "thermal/diningRoom",
+    "thermal/lakeSide",
+    "turbulence/turbulence0",
+    "turbulence/turbulence2"
+  ],
+  "test": [
+    "PTZ/intermittentPan",
+    "PTZ/twoPositionPTZCam",
+    "badWeather/snowFall",
+    "badWeather/wetSnow",
+    "baseline/highway",
+    "baseline/pedestrians",
+    "cameraJitter/boulevard",
+    "cameraJitter/sidewalk",
+    "dynamicBackground/fall",
+    "dynamicBackground/fountain01",
+    "dynamicBackground/overpass",
+    "intermittentObjectMotion/abandonedBox",
+    "intermittentObjectMotion/sofa",
+    "intermittentObjectMotion/winterDriveway",
+    "lowFramerate/tramCrossroad_1fps",
+    "lowFramerate/turnpike_0_5fps",
+    "nightVideos/bridgeEntry",
+    "nightVideos/busyBoulvard",
+    "nightVideos/tramStation",
+    "shadow/copyMachine",
+    "shadow/cubicle",
+    "shadow/peopleInShade",
+    "thermal/library",
+    "thermal/park",
+    "turbulence/turbulence1",
+    "turbulence/turbulence3"
+  ],
+  "by_category": {
+    "PTZ": {
+      "train": [
+        "PTZ/zoomInZoomOut",
+        "PTZ/continuousPan"
+      ],
+      "test": [
+        "PTZ/twoPositionPTZCam",
+        "PTZ/intermittentPan"
+      ],
+      "n_train": 2,
+      "n_test": 2,
+      "n_total": 4,
+      "flag": ""
+    },
+    "badWeather": {
+      "train": [
+        "badWeather/blizzard",
+        "badWeather/skating"
+      ],
+      "test": [
+        "badWeather/wetSnow",
+        "badWeather/snowFall"
+      ],
+      "n_train": 2,
+      "n_test": 2,
+      "n_total": 4,
+      "flag": ""
+    },
+    "baseline": {
+      "train": [
+        "baseline/office",
+        "baseline/PETS2006"
+      ],
+      "test": [
+        "baseline/highway",
+        "baseline/pedestrians"
+      ],
+      "n_train": 2,
+      "n_test": 2,
+      "n_total": 4,
+      "flag": ""
+    },
+    "cameraJitter": {
+      "train": [
+        "cameraJitter/badminton",
+        "cameraJitter/traffic"
+      ],
+      "test": [
+        "cameraJitter/boulevard",
+        "cameraJitter/sidewalk"
+      ],
+      "n_train": 2,
+      "n_test": 2,
+      "n_total": 4,
+      "flag": ""
+    },
+    "dynamicBackground": {
+      "train": [
+        "dynamicBackground/fountain02",
+        "dynamicBackground/canoe",
+        "dynamicBackground/boats"
+      ],
+      "test": [
+        "dynamicBackground/fountain01",
+        "dynamicBackground/overpass",
+        "dynamicBackground/fall"
+      ],
+      "n_train": 3,
+      "n_test": 3,
+      "n_total": 6,
+      "flag": ""
+    },
+    "intermittentObjectMotion": {
+      "train": [
+        "intermittentObjectMotion/streetLight",
+        "intermittentObjectMotion/parking",
+        "intermittentObjectMotion/tramstop"
+      ],
+      "test": [
+        "intermittentObjectMotion/sofa",
+        "intermittentObjectMotion/winterDriveway",
+        "intermittentObjectMotion/abandonedBox"
+      ],
+      "n_train": 3,
+      "n_test": 3,
+      "n_total": 6,
+      "flag": ""
+    },
+    "lowFramerate": {
+      "train": [
+        "lowFramerate/port_0_17fps",
+        "lowFramerate/tunnelExit_0_35fps"
+      ],
+      "test": [
+        "lowFramerate/tramCrossroad_1fps",
+        "lowFramerate/turnpike_0_5fps"
+      ],
+      "n_train": 2,
+      "n_test": 2,
+      "n_total": 4,
+      "flag": ""
+    },
+    "nightVideos": {
+      "train": [
+        "nightVideos/fluidHighway",
+        "nightVideos/streetCornerAtNight",
+        "nightVideos/winterStreet"
+      ],
+      "test": [
+        "nightVideos/tramStation",
+        "nightVideos/bridgeEntry",
+        "nightVideos/busyBoulvard"
+      ],
+      "n_train": 3,
+      "n_test": 3,
+      "n_total": 6,
+      "flag": ""
+    },
+    "shadow": {
+      "train": [
+        "shadow/backdoor",
+        "shadow/busStation",
+        "shadow/bungalows"
+      ],
+      "test": [
+        "shadow/cubicle",
+        "shadow/peopleInShade",
+        "shadow/copyMachine"
+      ],
+      "n_train": 3,
+      "n_test": 3,
+      "n_total": 6,
+      "flag": ""
+    },
+    "thermal": {
+      "train": [
+        "thermal/diningRoom",
+        "thermal/lakeSide",
+        "thermal/corridor"
+      ],
+      "test": [
+        "thermal/park",
+        "thermal/library"
+      ],
+      "n_train": 3,
+      "n_test": 2,
+      "n_total": 5,
+      "flag": ""
+    },
+    "turbulence": {
+      "train": [
+        "turbulence/turbulence2",
+        "turbulence/turbulence0"
+      ],
+      "test": [
+        "turbulence/turbulence3",
+        "turbulence/turbulence1"
+      ],
+      "n_train": 2,
+      "n_test": 2,
+      "n_total": 4,
+      "flag": ""
+    }
+  }
+}

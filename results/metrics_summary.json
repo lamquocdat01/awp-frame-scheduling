@@ -1,0 +1,332 @@
+{
+  "config": {
+    "seed": 42,
+    "W": 7,
+    "B": 1000,
+    "n_videos": 40,
+    "T": 1500,
+    "a_grid": [
+      0.1,
+      0.2,
+      0.333
+    ],
+    "lambda_grid": [
+      0.0,
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ],
+    "corrupt_grid": [
+      0.0,
+      0.2,
+      0.4,
+      0.6,
+      0.8,
+      1.0
+    ],
+    "regimes": [
+      "noise",
+      "adversarial"
+    ],
+    "d_prime": 2.3262
+  },
+  "note": "Synthetic event-process hiệu chỉnh theo P-A sparse_duration_law; anchors là số đo thật. Thí nghiệm video gốc (T10) vẫn cần dataset 121 video.",
+  "calibration_check": {
+    "target_pa": {
+      "median": 1.0,
+      "mean": 6.1286,
+      "cv": 4.6711,
+      "frac_single": 0.5957,
+      "frac_ge5": 0.144
+    },
+    "synthetic": {
+      "n_events": 1448,
+      "median": 1.0,
+      "mean": 5.2742,
+      "cv": 2.9617,
+      "frac_single": 0.5739,
+      "frac_ge5": 0.1823,
+      "mean_inevent": 0.1273
+    }
+  },
+  "eta_by_regime_p": {
+    "noise": {
+      "0.0": 0.0481,
+      "0.2": 0.1374,
+      "0.4": 0.2273,
+      "0.6": 0.3214,
+      "0.8": 0.4097,
+      "1.0": 0.501
+    },
+    "adversarial": {
+      "0.0": 0.0481,
+      "0.2": 0.1569,
+      "0.4": 0.3592,
+      "0.6": 0.5755,
+      "0.8": 0.7206,
+      "1.0": 0.8026
+    }
+  },
+  "deployment_eta_band_cue_auc": [
+    0.2087,
+    0.5066
+  ],
+  "smoothness_noise": {
+    "a0.100_lam0.00": {
+      "slope": -0.8487,
+      "pearson_r": -0.8839,
+      "recall_eta_min": 0.9938,
+      "recall_eta_max": 0.5717
+    },
+    "a0.100_lam0.25": {
+      "slope": -0.8575,
+      "pearson_r": -0.9306,
+      "recall_eta_min": 0.9863,
+      "recall_eta_max": 0.5755
+    },
+    "a0.100_lam0.50": {
+      "slope": -0.7543,
+      "pearson_r": -0.9661,
+      "recall_eta_min": 0.9584,
+      "recall_eta_max": 0.6096
+    },
+    "a0.100_lam0.75": {
+      "slope": -0.4622,
+      "pearson_r": -0.9874,
+      "recall_eta_min": 0.8918,
+      "recall_eta_max": 0.684
+    },
+    "a0.100_lam1.00": {
+      "slope": 0.0,
+      "pearson_r": null,
+      "recall_eta_min": 0.7805,
+      "recall_eta_max": 0.7805
+    },
+    "a0.200_lam0.00": {
+      "slope": -0.3338,
+      "pearson_r": -0.7758,
+      "recall_eta_min": 1.0,
+      "recall_eta_max": 0.8144
+    },
+    "a0.200_lam0.25": {
+      "slope": -0.3,
+      "pearson_r": -0.8195,
+      "recall_eta_min": 1.0,
+      "recall_eta_max": 0.8414
+    },
+    "a0.200_lam0.50": {
+      "slope": -0.1644,
+      "pearson_r": -0.8557,
+      "recall_eta_min": 0.9989,
+      "recall_eta_max": 0.916
+    },
+    "a0.200_lam0.75": {
+      "slope": 0.0,
+      "pearson_r": null,
+      "recall_eta_min": 1.0,
+      "recall_eta_max": 1.0
+    },
+    "a0.200_lam1.00": {
+      "slope": 0.0,
+      "pearson_r": null,
+      "recall_eta_min": 1.0,
+      "recall_eta_max": 1.0
+    },
+    "a0.333_lam0.00": {
+      "slope": -0.0812,
+      "pearson_r": -0.7828,
+      "recall_eta_min": 1.0,
+      "recall_eta_max": 0.956
+    },
+    "a0.333_lam0.25": {
+      "slope": -0.0504,
+      "pearson_r": -0.7431,
+      "recall_eta_min": 1.0,
+      "recall_eta_max": 0.9711
+    },
+    "a0.333_lam0.50": {
+      "slope": 0.0,
+      "pearson_r": null,
+      "recall_eta_min": 1.0,
+      "recall_eta_max": 1.0
+    },
+    "a0.333_lam0.75": {
+      "slope": 0.0,
+      "pearson_r": null,
+      "recall_eta_min": 1.0,
+      "recall_eta_max": 1.0
+    },
+    "a0.333_lam1.00": {
+      "slope": 0.0,
+      "pearson_r": null,
+      "recall_eta_min": 1.0,
+      "recall_eta_max": 1.0
+    }
+  },
+  "consistency_robustness": [
+    {
+      "a": 0.1,
+      "lam": 0.0,
+      "consistency_recall": 0.9938,
+      "robustness_recall": 0.0,
+      "backbone_floor": 0.0,
+      "periodic_certificate": 0.8,
+      "oblivious_random": 0.5695
+    },
+    {
+      "a": 0.1,
+      "lam": 0.25,
+      "consistency_recall": 0.9863,
+      "robustness_recall": 0.1971,
+      "backbone_floor": 0.2,
+      "periodic_certificate": 0.8,
+      "oblivious_random": 0.5695
+    },
+    {
+      "a": 0.1,
+      "lam": 0.5,
+      "consistency_recall": 0.9584,
+      "robustness_recall": 0.3915,
+      "backbone_floor": 0.4,
+      "periodic_certificate": 0.8,
+      "oblivious_random": 0.5695
+    },
+    {
+      "a": 0.1,
+      "lam": 0.75,
+      "consistency_recall": 0.8918,
+      "robustness_recall": 0.596,
+      "backbone_floor": 0.6,
+      "periodic_certificate": 0.8,
+      "oblivious_random": 0.5695
+    },
+    {
+      "a": 0.1,
+      "lam": 1.0,
+      "consistency_recall": 0.7805,
+      "robustness_recall": 0.7805,
+      "backbone_floor": 0.8,
+      "periodic_certificate": 0.8,
+      "oblivious_random": 0.5695
+    },
+    {
+      "a": 0.2,
+      "lam": 0.0,
+      "consistency_recall": 1.0,
+      "robustness_recall": 0.0014,
+      "backbone_floor": 0.0,
+      "periodic_certificate": 1.0,
+      "oblivious_random": 0.8322
+    },
+    {
+      "a": 0.2,
+      "lam": 0.25,
+      "consistency_recall": 1.0,
+      "robustness_recall": 0.3915,
+      "backbone_floor": 0.4,
+      "periodic_certificate": 1.0,
+      "oblivious_random": 0.8322
+    },
+    {
+      "a": 0.2,
+      "lam": 0.5,
+      "consistency_recall": 0.9989,
+      "robustness_recall": 0.7805,
+      "backbone_floor": 0.8,
+      "periodic_certificate": 1.0,
+      "oblivious_random": 0.8322
+    },
+    {
+      "a": 0.2,
+      "lam": 0.75,
+      "consistency_recall": 1.0,
+      "robustness_recall": 1.0,
+      "backbone_floor": 1.0,
+      "periodic_certificate": 1.0,
+      "oblivious_random": 0.8322
+    },
+    {
+      "a": 0.2,
+      "lam": 1.0,
+      "consistency_recall": 1.0,
+      "robustness_recall": 1.0,
+      "backbone_floor": 1.0,
+      "periodic_certificate": 1.0,
+      "oblivious_random": 0.8322
+    },
+    {
+      "a": 0.333,
+      "lam": 0.0,
+      "consistency_recall": 1.0,
+      "robustness_recall": 0.0103,
+      "backbone_floor": 0.0,
+      "periodic_certificate": 1.0,
+      "oblivious_random": 0.9608
+    },
+    {
+      "a": 0.333,
+      "lam": 0.25,
+      "consistency_recall": 1.0,
+      "robustness_recall": 0.6725,
+      "backbone_floor": 0.5,
+      "periodic_certificate": 1.0,
+      "oblivious_random": 0.9608
+    },
+    {
+      "a": 0.333,
+      "lam": 0.5,
+      "consistency_recall": 1.0,
+      "robustness_recall": 1.0,
+      "backbone_floor": 1.0,
+      "periodic_certificate": 1.0,
+      "oblivious_random": 0.9608
+    },
+    {
+      "a": 0.333,
+      "lam": 0.75,
+      "consistency_recall": 1.0,
+      "robustness_recall": 1.0,
+      "backbone_floor": 1.0,
+      "periodic_certificate": 1.0,
+      "oblivious_random": 0.9608
+    },
+    {
+      "a": 0.333,
+      "lam": 1.0,
+      "consistency_recall": 1.0,
+      "robustness_recall": 1.0,
+      "backbone_floor": 1.0,
+      "periodic_certificate": 1.0,
+      "oblivious_random": 0.9608
+    }
+  ],
+  "hedge_floor_respected": true,
+  "theorem1_ceiling_holds_at_adversarial_extreme": true,
+  "theorem1_bound_looseness_adversarial": {
+    "a0.100_p1.0": 0.8395,
+    "a0.200_p1.0": 0.9986,
+    "a0.333_p1.0": 0.9897
+  },
+  "finding_for_T05": "Cận informal R<=1-η(1-(W+1)/K) trở nên vô hiệu khi (W+1)/K>=1 (tức a>=1/(W+1)≈0.125): lúc đó bound=1 với mọi η nhưng gate đối kháng sụp về ~0. T05 cần một dạng cận dưới mạnh hơn cho vùng ngân sách cao (vd. dựa trên 'budget đặt sai chỗ' thay vì coverage cửa sổ).",
+  "adversarial_gate_below_oblivious": {
+    "a0.100": true,
+    "a0.200": true,
+    "a0.333": true
+  },
+  "sanity_vs_pa": {
+    "a0.100": {
+      "simulated_periodic": 0.7805,
+      "certificate": 0.8,
+      "adversarial_pure_gate": 0.0,
+      "pa_periodic_nearest": 0.7785,
+      "pa_gateS_nearest": 0.1516,
+      "pa_gateRF_nearest": 0.1198,
+      "pa_nearest_a": 0.1
+    },
+    "a0.200": {
+      "simulated_periodic": 1.0,
+      "certificate": 1.0,
+      "adversarial_pure_gate": 0.0014,
+      "pa_periodic_nearest": 0.9841,
+      "pa_gateS_nearest": 0
