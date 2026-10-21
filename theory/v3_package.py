@@ -6,6 +6,7 @@ folder), 03_S1_theory_supplement.pdf, 04_S2_empirical_supplement.pdf, 05_cover_l
 07_abstract_keywords_ASCII.txt, MANIFEST.md (sha256). No file is edited by hand.
 """
 import hashlib
+import os
 import re
 import shutil
 import subprocess
@@ -13,11 +14,21 @@ import tempfile
 import unicodedata
 import zipfile
 from pathlib import Path
-from v3_io import atomic_copy, atomic_write_text  # noqa: E402  (atomic writes, C7)
+from v3_io import atomic_copy, atomic_open, atomic_write_text  # noqa: E402  (atomic writes, C7)
 
 TOPIC = Path(__file__).resolve().parents[1]
 REV = TOPIC / "Revision_v3"
 PKG = TOPIC / "submission_package" / "EJOR"
+REPO = Path(os.environ.get("AWP_REPO", r"D:\Repos\awp-frame-scheduling"))
+TAG = "v3.0.0-staging"
+# every derived data file the paper / supplements rely on (C7(a): hash now, re-hash the raw GitHub files after push)
+DATA = ["Revision_v3/numbers.json", "Revision_v3/numbers.tex", "Revision_v3/S2_percategory_v3.csv",
+        "results/v3/a8a_summary.json", "results/v3/a8a_ceiling.csv", "results/v3/a8a_sv_worstcase.csv",
+        "results/v3/a8a_sv_family_all.csv", "results/v3/a8c_summary.json", "results/v3/a8c_alloc.csv",
+        "results/v3/a8c_T2.csv", "results/v3/thm3_hedge_audit.txt", "results/percategory.csv",
+        "results/metrics_summary_REAL.json", "results/corruption_sweep_REAL.csv", "results/metrics_summary.json",
+        "results/frontier_general.csv", "results/learned_cue_probe.json", "results/anchors_pa.csv",
+        "energy/fit.json"]
 
 
 def sha(p):
@@ -39,6 +50,36 @@ def flat_source(tmp: Path) -> list[Path]:
         atomic_copy(REV / "figures" / g, tmp / g)
         files.append(tmp / g)
     return files
+
+
+def git_bytes(rev: str, path: str) -> bytes:
+    return subprocess.run(["git", "-C", str(REPO), "show", f"{rev}:{path}"], capture_output=True, check=True).stdout
+
+
+def data_manifest() -> list[str]:
+    """sha256 of the cited derived data as committed at TAG (bytes GitHub raw will serve; .gitattributes * -text)."""
+    have_tag = subprocess.run(["git", "-C", str(REPO), "rev-parse", "-q", "--verify", f"refs/tags/{TAG}"],
+                              capture_output=True).returncode == 0
+    rev = TAG if have_tag else "HEAD"
+    commit = subprocess.run(["git", "-C", str(REPO), "rev-parse", f"{rev}^{{commit}}"], capture_output=True,
+                            text=True, check=True).stdout.strip()
+    rows = []
+    for path in DATA:
+        b = git_bytes(rev, path)
+        wd = TOPIC / path
+        same = "=" if wd.exists() and wd.read_bytes() == b else ("(not in working folder)" if not wd.exists() else "DIFFERS")
+        rows.append(f"| `{path}` | {len(b)} | `{hashlib.sha256(b).hexdigest()}` | {same} | |")
+    names = subprocess.run(["git", "-C", str(REPO), "ls-tree", "--name-only", f"{rev}:results/awp_cache"],
+                           capture_output=True, text=True, check=True).stdout.split()
+    listing = "".join(f"{hashlib.sha256(git_bytes(rev, 'results/awp_cache/' + n)).hexdigest()}  {n}\n" for n in sorted(names))
+    rows.append(f"| `results/awp_cache/*.npz` ({len(names)} files; sha256 of the sorted `sha256sum` listing) | — | "
+                f"`{hashlib.sha256(listing.encode()).hexdigest()}` | | |")
+    return ["", f"## C7(a) — derived data cited by the paper, as committed at `{rev}` (commit `{commit[:7]}`)", "",
+            "Column *working folder*: `=` means the topic-folder copy is byte-identical. Column *after push*: after the "
+            "author pushes the tag, fetch each file raw from GitHub at the tag "
+            f"(`https://raw.githubusercontent.com/<owner>/<repo>/{TAG}/<path>`), hash it and fill in = / ≠. "
+            "The URL in the paper currently points to the TPDS repository (TODO #6).", "",
+            "| path | bytes | sha256 | working folder | after push (raw @ tag) |", "|---|---|---|---|---|"] + rows
 
 
 def ascii_text(s: str) -> str:
@@ -63,9 +104,10 @@ def main():
         src = td / "src"
         src.mkdir()
         files = flat_source(src)
-        with zipfile.ZipFile(PKG / "02_source_flat.zip", "w", zipfile.ZIP_DEFLATED) as z:
+        with zipfile.ZipFile(td / "02_source_flat.zip", "w", zipfile.ZIP_DEFLATED) as z:
             for f in files:
                 z.write(f, f.name)
+        atomic_copy(td / "02_source_flat.zip", PKG / "02_source_flat.zip")
         chk = td / "chk"
         chk.mkdir()
         with zipfile.ZipFile(PKG / "02_source_flat.zip") as z:
@@ -86,7 +128,8 @@ def main():
     hl = [l.strip() for l in (REV / "highlights.txt").read_text(encoding="utf-8").splitlines() if l.strip()]
     for l in hl:
         d.add_paragraph(l, style="List Bullet")
-    d.save(PKG / "06_highlights.docx")
+    with atomic_open(PKG / "06_highlights.docx", mode="wb") as fh:
+        d.save(fh)
     tpl = (REV / "paper_v3_template.tex").read_text(encoding="utf-8")
     title = re.search(r"\\title\{(.*?)\}\n", tpl).group(1)
     abstract = tpl[tpl.index("\\begin{abstract}") + 16: tpl.index("\\end{abstract}")]
@@ -97,7 +140,7 @@ def main():
     rows = [f"| {p.name} | {p.stat().st_size} | `{sha(p)}` |" for p in sorted(PKG.iterdir())]
     man = ["# MANIFEST — submission_package/EJOR (AwP v3)", "", f"Built by `code/v3_package.py`. {build}.", "",
            "| file | bytes | sha256 |", "|---|---|---|"] + rows + ["",
-           "Not uploaded: MANIFEST.md, PORTAL_GUIDE_EJOR.md, CHECKLIST_03_v3.md (internal)."]
+           "Not uploaded: MANIFEST.md, PORTAL_GUIDE_EJOR.md, CHECKLIST_03_v3.md (internal)."] + data_manifest()
     atomic_write_text(PKG / "MANIFEST.md", "\n".join(man) + "\n", encoding="utf-8")
     print(build)
     print("\n".join(rows))
