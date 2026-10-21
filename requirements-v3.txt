@@ -1,0 +1,5 @@
+# AwP v3 reproduction (tested with Python 3.11.9 on Windows 11)
+numpy==1.26.4
+matplotlib==3.10.8
+scipy==1.16.3
+requests==2.31.0   # only for theory/v3_verify_refs.py (registry checks)

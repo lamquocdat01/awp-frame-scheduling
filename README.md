@@ -68,3 +68,26 @@ Parallel and Distributed Systems, under review). See `paper/paper.pdf`.
 
 ## License
 MIT — see `LICENSE`.
+
+## Version 3 (2026-10, staging) — what is new and how to reproduce
+Paper v3 (target: European Journal of Operational Research) adds the limits of feedback for adaptive gates
+(Theorems 4-6, Corollary 7, Conjecture 8), optimal tier budget allocation (Theorem 7), and corrects the
+HEDGE-GATE clause of Theorem 3 (the block-aware split of Algorithm 1 is Pareto-optimal in every regime; the
+previously reported 0.19 gap belongs to a naive overlapping split). Notes with full proofs: `theory/v3_notes/`.
+
+```bash
+python -m venv .venv && .venv/Scripts/pip install -r requirements-v3.txt   # (.venv/bin on Linux/macOS)
+.venv/Scripts/python theory/v3_reproduce.py          # numbers + allocation, compares Revision_v3/numbers.json key by key
+.venv/Scripts/python theory/v3_reproduce.py --full   # + adaptive-gate Monte Carlo (~40 min)
+```
+| v3 file | role |
+|---|---|
+| `theory/v3_numbers.py` | every number of the v3 paper from `results/awp_cache/*.npz` (per-video cue + event mask, derived; no video) and `energy/fit.json`; re-verifies the TPDS Table III and `results/percategory.csv` row by row |
+| `theory/v3_a8a_mc.py` | adaptive gates: ceiling check, sprinkle-and-verify against the adversary family (seeds 42-46) |
+| `theory/v3_a8c_alloc.py` | tier allocation: uniform vs exact DP vs bang-bang vs envelope bound (n = 8/32/128) |
+| `theory/v3_check_thm3_hedge.py` | audit of the Theorem 3 correction |
+| `theory/v3_figures.py`, `v3_fig24.py` | 300-dpi redraws at printed size |
+| `results/v3/`, `Revision_v3/` | outputs (CSV/JSON, numbers.json/tex, figures, verified refs.bib) |
+
+The manuscript source is not part of this repository. `gates/` and `evaluation/` are kept for the history of the
+TPDS version; v3 does not use them.

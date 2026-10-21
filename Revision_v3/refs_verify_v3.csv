@@ -1,0 +1,58 @@
+key,doi,title,year,venue,status,checked_at
+lv,10.1145/3447579,Competitive Caching with Machine Learned Advice,2021,Journal of the ACM,OK,2026-10-21
+purohit,,Improving Online Algorithms via ML Predictions,2018,HTTP 200,OK-URL,2026-10-21
+mv,10.1145/3528087,Algorithms with predictions,2022,Communications of the ACM,OK,2026-10-21
+rohatgi,10.1137/1.9781611975994.112,Near-Optimal Bounds for Online Caching with Machine Learned Advice,2020,Proceedings of the Fourteenth Annual ACM-SIAM Symposium on Discrete Algorithms,OK,2026-10-21
+bamas,,The Primal-Dual method for Learning Augmented Algorithms,2020,HTTP 200,OK-URL,2026-10-21
+antoniadis,,Secretary and Online Matching Problems with Machine Learned Advice,2020,HTTP 200,OK-URL,2026-10-21
+kraska,10.1145/3183713.3196909,The Case for Learned Index Structures,2018,Proceedings of the 2018 International Conference on Management of Data,OK,2026-10-21
+noscope,10.14778/3137628.3137664,NoScope: optimizing neural network queries over video at scale,2017,Proceedings of the VLDB Endowment,OK,2026-10-21
+focus,,Focus: Querying Large Video Datasets with Low Latency and Low Cost,2018,HTTP 200,OK-URL,2026-10-21
+glimpse,10.1145/2809695.2809711,"Glimpse: Continuous, Real-Time Object Recognition on Mobile Devices",2015,Proceedings of the 13th ACM Conference on Embedded Networked Sensor Systems,OK,2026-10-21
+chameleon,10.1145/3230543.3230574,Chameleon: scalable adaptation of video analytics,2018,Proceedings of the 2018 Conference of the ACM Special Interest Group on Data Communication,OK,2026-10-21
+reducto,10.1145/3387514.3405874,Reducto: On-Camera Filtering for Resource-Efficient Real-Time Video Analytics,2020,"Proceedings of the Annual conference of the ACM Special Interest Group on Data Communication on the applications, technologies, architectures, and protocols for computer communication",OK,2026-10-21
+aoi,10.1109/jsac.2021.3065072,Age of Information: An Introduction and Survey,2021,IEEE Journal on Selected Areas in Communications,OK,2026-10-21
+qcd,10.1080/07474946.2012.651981,Data-Efficient Quickest Change Detection with On-Off Observation Control,2012,Sequential Analysis,OK,2026-10-21
+lattanzi,10.1137/1.9781611975994.114,Online Scheduling via Learned Weights,2020,Proceedings of the Fourteenth Annual ACM-SIAM Symposium on Discrete Algorithms,OK,2026-10-21
+im,,Online Knapsack with Frequency Predictions,2021,HTTP 200,OK-URL,2026-10-21
+wei,10.4230/lipics.approx/random.2020.60,Better and Simpler Learning-Augmented Online Caching,2020,"LIPIcs, Volume 176, APPROX/RANDOM 2020 (DataCite)",OK,2026-10-21
+anand,,Customizing ML Predictions for Online Algorithms,2020,HTTP 200,OK-URL,2026-10-21
+mbloom,,A Model for Learned Bloom Filters and Optimizing by Sandwiching,2018,HTTP 200,OK-URL,2026-10-21
+angelopoulos,10.4230/lipics.itcs.2020.52,Online Computation with Untrusted Advice,2020,"LIPIcs, Volume 151, ITCS 2020 (DataCite)",OK,2026-10-21
+antoniadisM,,Online Metric Algorithms with Untrusted Predictions,2020,HTTP 200,OK-URL,2026-10-21
+sun,,Pareto-Optimal Learning-Augmented Algorithms for Online Conversion Problems,2021,HTTP 200,OK-URL,2026-10-21
+christianson,,Optimal Robustness-Consistency Tradeoffs for Learning-Augmented Metrical Task Systems,2023,HTTP 200,OK-URL,2026-10-21
+anand2,,Online Algorithms with Multiple Predictions,2022,HTTP 200,OK-URL,2026-10-21
+dds,10.1145/3387514.3405887,Server-Driven Video Streaming for Deep Learning Inference,2020,"Proceedings of the Annual conference of the ACM Special Interest Group on Data Communication on the applications, technologies, architectures, and protocols for computer communication",OK,2026-10-21
+awstream,10.1145/3230543.3230554,AWStream: adaptive wide-area streaming analytics,2018,Proceedings of the 2018 Conference of the ACM Special Interest Group on Data Communication,OK,2026-10-21
+neurosurgeon,10.1145/3037697.3037698,Neurosurgeon: Collaborative Intelligence Between the Cloud and Mobile Edge,2017,Proceedings of the Twenty-Second International Conference on Architectural Support for Programming Languages and Operating Systems,OK,2026-10-21
+nexus,10.1145/3341301.3359658,Nexus: a GPU cluster engine for accelerating DNN-based video analysis,2019,Proceedings of the 27th ACM Symposium on Operating Systems Principles,OK,2026-10-21
+spinn,10.1145/3372224.3419194,SPINN: synergistic progressive inference of neural networks over device and cloud,2020,Proceedings of the 26th Annual International Conference on Mobile Computing and Networking,OK,2026-10-21
+clockwork,,Serving DNNs like Clockwork: Performance Predictability from the Bottom Up,2020,HTTP 200,OK-URL,2026-10-21
+filterforward,,Scaling Video Analytics on Constrained Edge Nodes,2019,HTTP 200,OK-URL,2026-10-21
+esmo,10.1109/tpds.2023.3281598,ESMO: Joint Frame Scheduling and Model Caching for Edge Video Analytics,2023,IEEE Transactions on Parallel and Distributed Systems,OK,2026-10-21
+novas,10.1109/tc.2024.3416675,Novas: Tackling Online Dynamic Video Analytics With Service Adaptation at Mobile Edge Servers,2024,IEEE Transactions on Computers,OK,2026-10-21
+lascheduling,10.1109/tc.2024.3441856,Learning-Augmented Scheduling,2024,IEEE Transactions on Computers,OK,2026-10-21
+tpdscache,10.1109/tpds.2024.3475412,Competitive Analysis of Online Elastic Caching of Transient Data in Multi-Tiered Content Delivery Network,2024,IEEE Transactions on Parallel and Distributed Systems,OK,2026-10-21
+hpcpred,10.1109/tpds.2025.3586723,Scheduling With Lightweight Predictions in Power-Constrained HPC Platforms,2025,IEEE Transactions on Parallel and Distributed Systems,OK,2026-10-21
+awpaoi,10.1109/tnse.2025.3561736,Learning-Augmented Online Minimization of Age of Information and Transmission Costs,2025,IEEE Transactions on Network Science and Engineering,OK,2026-10-21
+stclip,10.1145/3711701,Learning-Augmented Competitive Algorithms for Spatiotemporal Online Allocation with Deadline Constraints,2025,Proceedings of the ACM on Measurement and Analysis of Computing Systems,OK,2026-10-21
+orTSP,10.1287/ijoc.2023.0478,Online TSP and Online Dial-a-Ride with Predictions,2026,INFORMS Journal on Computing,OK,2026-10-21
+orLeadTime,10.1287/ijoc.2025.1104,Online Lead Time Quotation with Predictions,2026,INFORMS Journal on Computing,OK,2026-10-21
+orSearch,10.1287/opre.2024.1498,Search Games with Predictions,2026,Operations Research,OK,2026-10-21
+orMech,10.1287/moor.2022.0225,Learning-Augmented Mechanism Design: Leveraging Predictions for Facility Location,2024,Mathematics of Operations Research,OK,2026-10-21
+predSpecific,10.1145/3788100,Prediction-Specific Design of Learning-Augmented Algorithms,2026,Proceedings of the ACM on Measurement and Analysis of Computing Systems,OK,2026-10-21
+adaswitch,10.48550/arXiv.2509.02302,AdaSwitch: An Adaptive Switching Meta-Algorithm for Learning-Augmented Bounded-Influence Problems,2025,arXiv cs.LG,OK,2026-10-21
+laasurvey,10.48550/arXiv.2609.04787,"Learning-Augmented Algorithms: Guarantees, Construction Mechanisms, and System-Level Implications",2026,arXiv cs.LG,OK,2026-10-21
+fifo,10.48550/arXiv.2604.26349,Asymptotically Robust Learning-Augmented Algorithms for Preemptive FIFO Buffer Management,2026,arXiv cs.DS,OK,2026-10-21
+partialpred,10.48550/arXiv.2405.01013,Non-clairvoyant Scheduling with Partial Predictions,2024,arXiv cs.LG; published version: Proceedings of the 33rd ACM Symposium on Parallelism in Algorithms and Architectures doi:10.1145/3409964.3461790,OK,2026-10-21
+deep3,10.1109/jiot.2026.3740931,Certifiable Worst-Case Detection Latency for Energy-Efficient Frame-Skipping at the Edge,2026,IEEE Internet of Things Journal,OK,2026-10-21
+yao,10.1109/sfcs.1977.24,Probabilistic computations: Toward a unified measure of complexity,1977,18th Annual Symposium on Foundations of Computer Science (sfcs 1977),OK,2026-10-21
+hoeffding,10.1080/01621459.1963.10500830,Probability Inequalities for Sums of Bounded Random Variables,1963,Journal of the American Statistical Association,OK,2026-10-21
+borodinRand,10.1006/inco.1998.2775,On Randomization in On-Line Computation,1999,Information and Computation,OK,2026-10-21
+scurve,10.1016/j.ejor.2007.10.060,Solving knapsack problems with S-curve return functions,2009,European Journal of Operational Research,OK,2026-10-21
+ejorBatch,10.1016/j.ejor.2023.01.027,Best possible algorithms for online scheduling on identical batch machines with periodic pulse interruptions,2023,European Journal of Operational Research,OK,2026-10-21
+ejorEarly,10.1016/j.ejor.2024.01.009,Online early work scheduling on parallel machines,2024,European Journal of Operational Research,OK,2026-10-21
+ejorHarmonic,10.1016/j.ejor.2024.01.051,Tighter bounds for the harmonic bin packing algorithm,2024,European Journal of Operational Research,OK,2026-10-21
+ejorDynBatch,10.1016/j.ejor.2025.07.044,Dynamic batching of online arrivals to leverage economies of scale,2026,European Journal of Operational Research,OK,2026-10-21
+mandal,10.1109/tits.2020.3030801,Scene Independency Matters: An Empirical Study of Scene Dependent and Scene Independent Evaluation for CNN-Based Change Detection,2022,IEEE Transactions on Intelligent Transportation Systems,OK,2026-10-21
