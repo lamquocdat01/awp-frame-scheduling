@@ -13,7 +13,7 @@ TAG=v3.0.1-submission
 gh auth status >/dev/null 2>&1 || gh auth login --hostname github.com --git-protocol https --web
 git -C "$NEW" rev-parse -q --verify "refs/tags/$TAG" >/dev/null || { echo "tag $TAG missing in $NEW"; exit 1; }
 [ -z "$(git -C "$NEW" status --porcelain)" ] || { echo "$NEW has uncommitted changes"; exit 1; }
-[ "$(git -C "$NEW" grep -c 'lamquocdat@' | wc -l)" = "0" ] || { echo "e-mail found in working tree"; exit 1; }
+[ "$(git -C "$NEW" grep -c -e 'lamquocdat''@' | wc -l)" = "0" ] || { echo "e-mail found in working tree"; exit 1; }
 
 # 1) new public repository + push (main and the submission tag only)
 gh repo view lamquocdat01/awp-frame-scheduling >/dev/null 2>&1 || \
