@@ -389,6 +389,9 @@ def to_bib(e: dict) -> str:
         f.append(("year", str(e.get("year", ""))))
         if e.get("url"):
             f += [("url", e["url"]), ("urldate", TODAY)]
+    # P4 (APA via apacite): booktitles are set in sentence case, so brace acronyms / camel-case names (ACM, NeurIPS, LIPIcs)
+    f = [(k, re.sub(r"(?<![{\\\w])([A-Za-z]*[A-Z][A-Za-z]*[A-Z][A-Za-z/-]*)", r"{\1}", v) if k == "booktitle" else v)
+         for k, v in f]
     body = ",\n".join(f"  {k} = {{{v}}}" for k, v in f if v)
     head = ""
     if st == "UNVERIFIED":

@@ -36,10 +36,11 @@ REV = TOPIC / "Revision_v3"
 RES = TOPIC / "results"
 ENV = dict(os.environ, PYTHONUTF8="1", PYTHONIOENCODING="utf-8")
 
-JSON_ALWAYS = [REV / "numbers.json", RES / "v3" / "a8c_summary.json", RES / "v3" / "sweep_blockaware_summary.json"]
+JSON_ALWAYS = [REV / "numbers.json", RES / "v3" / "a8c_summary.json", RES / "v3" / "sweep_blockaware_summary.json",
+               RES / "v3" / "sweep_blockaware_synthetic_summary.json"]
 JSON_FULL = [RES / "v3" / "a8a_summary.json"]
 CSV_ALWAYS = [RES / "v3" / "a8c_alloc.csv", RES / "v3" / "a8c_T2.csv", REV / "S2_percategory_v3.csv",
-              RES / "v3" / "corruption_sweep_REAL_blockaware.csv"]
+              RES / "v3" / "corruption_sweep_REAL_blockaware.csv", RES / "v3" / "corruption_sweep_blockaware.csv"]
 CSV_FULL = [RES / "v3" / n for n in ("a8a_ceiling.csv", "a8a_sv_worstcase.csv", "a8a_sv_family_all.csv")]
 BYTES_ALWAYS = [REV / "numbers.tex", RES / "v3" / "thm3_hedge_audit.txt"]
 
@@ -106,6 +107,7 @@ def main():
         run("v3_a8a_mc.py")
     run("v3_a8c_alloc.py")
     sweep_rc = run("v3_sweep_blockaware.py", check=False)
+    sweep_rc += run("v3_sweep_blockaware.py", "--synthetic", check=False)
     run("v3_numbers.py")
     audit = subprocess.run([sys.executable, str(HERE / "v3_check_thm3_hedge.py")], check=True, env=ENV,
                            capture_output=True).stdout

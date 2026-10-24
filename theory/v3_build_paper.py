@@ -59,32 +59,38 @@ def main() -> None:
         return
     if a.check:
         paper = (REV / "paper_v3.tex").read_text(encoding="utf-8")
-        lines = [f"baseline sha256 {BASE_SHA}", f"paper_v3.tex sha256 {hashlib.sha256(paper.encode()).hexdigest()}", ""]
+        s1 = (REV / "S1_proofs.tex").read_text(encoding="utf-8") if (REV / "S1_proofs.tex").exists() else ""
+        lines = [f"baseline sha256 {BASE_SHA}", f"paper_v3.tex sha256 {hashlib.sha256(paper.encode()).hexdigest()}",
+                 f"S1_proofs.tex sha256 {hashlib.sha256(s1.encode()).hexdigest()} (complete proofs, supplement S1)", ""]
         n_ok = 0
         for k, v in blocks(bt):
-            hit = v in paper
-            n_ok += hit
+            where = "paper_v3.tex" if v in paper else ("S1_proofs.tex" if v in s1 else None)
+            n_ok += where is not None
             lines.append(f"{k:12s} sha256 {hashlib.sha256(v.encode()).hexdigest()[:16]}  "
-                         f"{'IDENTICAL' if hit else 'NOT PRESENT VERBATIM'}")
+                         f"{'IDENTICAL in ' + where if where else 'NOT PRESENT VERBATIM'}")
         lines.append("")
-        lines.append(f"{n_ok}/{len(bb)} baseline blocks present byte-identical in paper_v3.tex")
+        lines.append(f"{n_ok}/{len(bb)} baseline blocks present byte-identical (paper_v3.tex or S1_proofs.tex)")
         atomic_write_text(REV / "INVARIANTS_CHECK_blocks.txt", "\n".join(lines) + "\n", encoding="utf-8")
         print("\n".join(lines[-3:]))
         return
-    tpl = (REV / "paper_v3_template.tex").read_text(encoding="utf-8")
     used = []
 
     def sub(m: re.Match) -> str:
         key = m.group(1)
         if key not in bb:
             sys.exit(f"unknown baseline block {key}")
+        if key in used:
+            sys.exit(f"baseline block {key} inserted twice")
         used.append(key)
         return bb[key]
 
-    out = re.sub(r"^%%BASE\{([a-z]+#\d+)\}[ \t]*$", sub, tpl, flags=re.M)
-    atomic_write_text(REV / "paper_v3.tex", out, encoding="utf-8")
+    # P4 (EJOR 30-page limit): long proofs live in supplement S1; S1_proofs_template.tex takes %%BASE markers too
+    for src, dst in (("paper_v3_template.tex", "paper_v3.tex"), ("S1_proofs_template.tex", "S1_proofs.tex")):
+        if (REV / src).exists():
+            out = re.sub(r"^%%BASE\{([a-z]+#\d+)\}[ 	]*$", sub, (REV / src).read_text(encoding="utf-8"), flags=re.M)
+            atomic_write_text(REV / dst, out, encoding="utf-8")
     missing = [k for k in bb if k not in used]
-    print(f"paper_v3.tex written; inserted {len(used)} baseline blocks; not inserted: {missing}")
+    print(f"paper_v3.tex + S1_proofs.tex written; inserted {len(used)} baseline blocks; not inserted: {missing}")
 
 
 if __name__ == "__main__":

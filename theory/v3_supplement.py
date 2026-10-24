@@ -31,9 +31,17 @@ def f3(x):
 
 
 def s1():
-    L = [PRE % ("S1", "S1"),
-         r"\begin{center}{\Large Supplementary material S1: theory supplement}\\[4pt]",
+    # P4: S1 carries the complete proofs (EJOR 30-page limit); xr-hyper resolves equation/definition labels of the paper
+    pre1 = (PRE % ("S1", "S1")).replace(
+        r"\usepackage[hidelinks]{hyperref}",
+        "\\usepackage{amsthm}\n\\usepackage{xr-hyper}\n\\usepackage[hidelinks]{hyperref}\n\\externaldocument{paper_v3}\n"
+        "\\newcommand{\\bbeta}{\\beta}")
+    L = [pre1,
+         r"\begin{center}{\Large Supplementary material S1: complete proofs and theory supplement}\\[4pt]",
          r"\emph{Learning-augmented scheduling under hard activation budgets} --- L.~Q.~Dat\end{center}",
+         r"\input{S1_proofs}",
+         r"\section*{S1-B\quad Numerical checks of the theory}",
+         r"\input{S1_tab_beta}",
          r"\section*{S1.1 Robustness against the full adversary}",
          r"For a non-adaptive gate with per-block firing probabilities $p_b$, $\mathbb E[R(G;E)]=\frac1m\sum_{b\in E}p_b$ for every instance $E$, so the worst case over all $m$-subsets is the average of the $m$ smallest $p_b$. This is the quantity bounded in the converse of Theorem~2, so $r\le r^\star(c)$ holds for the full adversary, and \textsc{SAT-GATE} attains it. Theorems~4--6 therefore compare adaptive and non-adaptive gates under one and the same robustness notion.",
          r"\section*{S1.2 Theorem 4 (adaptive ceiling): numerical check}",
@@ -95,7 +103,8 @@ def s2():
         L.append(rf"{g} & {r['n_videos']} & {r['n_events']} & {f3(r['onset_auc'])} & {f3(r['gate_a010'])} & {f3(r['periodic_a010'])} & {f3(r['gate_a020'])} & {f3(r['periodic_a020'])} & ${f3(r['gap_a020'])}$\\")
     L += [r"\bottomrule\end{tabular}\end{table}",
           r"\begin{figure}[h]\centering\includegraphics[width=2.94in]{figures/fig6.png}\caption{Per-category gap at $a{=}0.20$ (gate $-$ periodic); every group is negative.}\end{figure}",
-          r"\section*{S2.2 Thermal control and instrument reproducibility for the energy anchor}",
+          r"\section*{S2.2 Energy measurements: table, thermal control and instrument reproducibility}",
+          r"\input{S2_tab_energy}",
           r"Because the activation sweep ran in ascending order, temperature co-varies with $a$, so we measured the temperature term directly instead of regressing it out. Immediately after a saturating $a{=}0.5$ block we ran an $a{=}0$ block with no cooldown, giving two detector-off measurements at the \emph{same} activation but different board temperature. Between conditions the power difference is $+0.011$\,W over $+0.67^\circ$C; regressing power on temperature \emph{within} the hot detector-off block, where activation is fixed and the board cools from $63.6$ to $59.6^\circ$C, gives $+0.0133\pm0.0014$\,W$/^\circ$C. Over the $2.53^\circ$C span of the sweep this accounts for $0.040$\,W of a $3.44$\,W total rise, i.e.\ $1.2\%$ of $\kappa$. (A regression that instead adds temperature as a covariate is not usable here: at $r=0.996$ the design is near-collinear, and it returns a physically impossible negative intercept, $-6.1\pm7.1$\,W, with the standard error on $\kappa$ inflated tenfold.) An earlier campaign on the same board and rail fits $W(a)=4.938+6.916\,a$; our slope reproduces it to $0.10\%$---evidence that the instrument is reproducible, not independent evidence about temperature, since that campaign shares the ascending design.",
           r"\section*{S2.3 A stronger learned cue does not rescue the gate}"]
     lp = json.loads((RES / "learned_cue_probe.json").read_text(encoding="utf-8"))
@@ -108,10 +117,24 @@ def s2():
           "gap & " + " & ".join(f"${f3(gv[a]['gap'])}$" for a in (0.1, 0.2, 0.333)) + r"\\",
           r"\bottomrule\end{tabular}\end{table}",
           r"\section*{S2.4 Calibrated synthetic corruption sweep}",
-          r"Synthetic event streams calibrated to the measured sparse duration law (median $1$, mean $\approx6$, CV $\approx4.7$; $40$ videos of $1500$ frames, seed $42$) with permutation noise $p\in\{0,0.2,\dots,1\}$ traverse the full range of $\eta$. Simulated periodic coverage matches $\beta$ within bootstrap noise ($0.78/1.00/1.00$ at $a=0.1/0.2/0.333$); under uninformative noise HEDGE-GATE coverage is affine in $\eta$ (Pearson $r$ up to $-0.99$; Proposition~4); under adversarial advice the pure gate collapses toward $0$ while HEDGE-GATE holds its floor $\lambda\beta$ (Theorem~1$'$). This synthetic sweep is carried over unchanged from the earlier version and uses its frame-level split at $0<\lambda<1$ (the dashed control of Fig.~7 in the paper, see S2.5); the endpoints $\lambda\in\{0,1\}$ are the same policies under either split, and the floor $\lambda\beta$ of Theorem~1$'$ comes from the backbone alone, so it holds for both splits.",
-          r"\begin{figure}[h]\centering\includegraphics[width=7.14in]{figures/fig24.png}\caption{Two failure modes (rows: $a{=}0.1,0.2,0.333$). Left, noise regime: coverage affine in $\eta$ for each $\lambda$. Right, adversarial regime: the pure gate collapses below the oblivious level while HEDGE-GATE holds $\lambda\beta$. Dashed: periodic certificate; dotted: oblivious-random level; orange: the deployed cue's error $\eta=1-\mathrm{AUC}_{\text{onset}}$ on the 121-video corpus.}\end{figure}",
+          r"Synthetic event streams calibrated to the measured sparse duration law (median $1$, mean $\approx6$, CV $\approx4.7$; $40$ videos of $1500$ frames, seed $42$) with permutation noise $p\in\{0,0.2,\dots,1\}$ traverse the full range of $\eta$. Simulated periodic coverage matches $\beta$ within bootstrap noise ($0.78/1.00/1.00$ at $a=0.1/0.2/0.333$); under uninformative noise HEDGE-GATE coverage is affine in $\eta$ (Pearson $r$ up to $-0.99$; Proposition~4); under adversarial advice the pure gate collapses toward $0$ while HEDGE-GATE holds its floor $\lambda\beta$ (Theorem~1$'$). (The Pearson coefficient is that of the earlier version's frame-level split.) " + syn_text(),
+          r"\begin{figure}[h]\centering\includegraphics[width=7.14in]{figures/fig24.png}\caption{Two failure modes (rows: $a{=}0.1,0.2,0.333$). Left, noise regime: coverage vs.\ $\eta$ for each $\lambda$. Right, adversarial regime: the pure gate collapses below the oblivious level while HEDGE-GATE holds $\lambda\beta$. Solid with markers: block-aware split of Algorithm~1; thin dashed (same colour, $0<\lambda<1$): frame-level split of the earlier version. Grey dashed: periodic certificate; dotted: oblivious-random level; orange: the deployed cue's error $\eta=1-\mathrm{AUC}_{\text{onset}}$ on the 121-video corpus.}\end{figure}",
           ] + s2_sweep() + [r"\end{document}"]
     atomic_write_text(REV / "S2_empirical_supplement.tex", "\n".join(L) + "\n", encoding="utf-8")
+
+
+def syn_text():
+    """S2.4: the synthetic sweep re-run with the block-aware split (v3_sweep_blockaware.py --synthetic)."""
+    S = json.loads((V3 / "sweep_blockaware_synthetic_summary.json").read_text(encoding="utf-8"))
+    n, a = S["intermediate_lambda"]["noise"], S["intermediate_lambda"]["adversarial"]
+    return (r"The sweep is re-run with the block-aware split of Algorithm~1 (\texttt{theory/v3\_sweep\_blockaware.py} with option \texttt{--synthetic}; same generator, order and seeds); "
+            r"replaying the frame-level split reproduces \texttt{results/corruption\_sweep.csv} cell for cell, and at $\lambda\in\{0,1\}$ the two splits coincide (%d invariant failures). "
+            r"At $0<\lambda<1$, under uninformative noise the block-aware split is higher in %d, equal in %d and lower in %d of %d cells (by at most %.3f); "
+            r"under adversarial advice it is higher in %d (by up to %.3f), equal in %d and lower in %d (by at most %.3f). "
+            r"The losses occur where the cue is informative (small corruption): the uniform draw among the advised epochs gives up the cue's ranking inside the advised set, a ranking the canonical family of Theorem~3 does not have. "
+            r"The gains occur under adversarial corruption $p\ge0.4$; at $p\ge0.6$ the block-aware split is never lower (15 cells higher, 12 equal), the largest gain at $a=0.333$, $\lambda=0.25$; the floor $\lambda\beta$ of Theorem~1$'$ comes from the backbone alone and holds under both splits."
+            % (S["invariant_failures"], n["n_ba_better"], n["n_equal"], n["n_ba_worse"], n["n_cells"], n["max_loss"],
+               a["n_ba_better"], a["max_gain"], a["n_equal"], a["n_ba_worse"], a["max_loss"]))
 
 
 def s2_sweep():

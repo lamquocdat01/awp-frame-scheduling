@@ -1,0 +1,27 @@
+{
+ "invariants": [
+  "S1 naive replay vs results/corruption_sweep.csv: 180 rows x 8 cells, 0 differences",
+  "S2 block-aware vs TPDS at lam in {0,1}: 72 rows, 0 cell differences"
+ ],
+ "invariant_failures": 0,
+ "intermediate_lambda": {
+  "noise": {
+   "n_cells": 54,
+   "n_ba_better": 6,
+   "n_ba_worse": 30,
+   "n_equal": 18,
+   "max_gain": 0.0187,
+   "max_loss": 0.0402,
+   "mean_diff": -0.0092
+  },
+  "adversarial": {
+   "n_cells": 54,
+   "n_ba_better": 18,
+   "n_ba_worse": 15,
+   "n_equal": 21,
+   "max_gain": 0.2384,
+   "max_loss": 0.0436,
+   "mean_diff": 0.0105
+  }
+ }
+}

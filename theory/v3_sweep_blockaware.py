@@ -165,5 +165,75 @@ def main():
     sys.exit(1 if fails else 0)
 
 
+# ---------------------------------------------------------------------------------------------------------
+# P4: the calibrated synthetic sweep (supplement S2.4, fig24) with both splits. Same generator, order and seeds
+# as awp_experiments.main: corpus rng SEED; per-(regime, p) predictor rng SEED+7+int(100p) consumed video by
+# video; bootstrap SEED+int(1000a)+int(10lam); tie rng [SEED+int(1000a)+int(10lam), round(100p), regime index].
+# Invariants: naive replay = results/corruption_sweep.csv cell for cell; lam in {0,1} rows of the block-aware
+# split = TPDS rows. Outputs results/v3/corruption_sweep_blockaware.csv (+ column split) and
+# results/v3/sweep_blockaware_synthetic_summary.json.
+SYN_CSV = RES / "v3" / "corruption_sweep_blockaware.csv"
+SYN_JSON = RES / "v3" / "sweep_blockaware_synthetic_summary.json"
+SYN_FIELDS = ["regime", "a", "lam", "corruption_p", "eta", "recall_mean", "ci_lo", "ci_hi"]
+
+
+def synthetic():
+    import math
+    import awp_experiments as axp
+    rng = np.random.default_rng(axp.SEED)
+    videos = [axp.make_video(axp.T_FRAMES, axp.TARGET_INEVENT, rng) for _ in range(axp.N_VIDEOS)]
+    try:
+        from scipy.stats import norm
+        d_prime = math.sqrt(2) * norm.ppf(0.95)
+    except Exception:
+        d_prime = math.sqrt(2) * 1.645
+    rows = {"naive": [], "blockaware": []}
+    for ri, regime in enumerate(axp.REGIMES):
+        eta = {}
+        for p in CORRUPT_GRID:
+            rngp = np.random.default_rng(SEED + 7 + int(p * 100))
+            eta[p] = eta_from_auc(float(np.mean([onset_auc(axp.predictor_score(v, axp.T_FRAMES, d_prime, p, regime, rngp), v["win"])
+                                                 for v in videos])))
+        for a in A_GRID:
+            for lam in LAMBDA_GRID:
+                for p in CORRUPT_GRID:
+                    for variant in ("naive", "blockaware"):
+                        rngp = np.random.default_rng(SEED + 7 + int(p * 100))
+                        tie = np.random.default_rng([SEED + int(a * 1000) + int(lam * 10), int(round(p * 100)), ri])
+                        per = []
+                        for v in videos:
+                            sc = axp.predictor_score(v, axp.T_FRAMES, d_prime, p, regime, rngp)
+                            f = (hedge_gate_fire(sc, axp.T_FRAMES, a, lam) if variant == "naive"
+                                 else hedge_gate_fire_blockaware(sc, axp.T_FRAMES, a, lam, tie))
+                            per.append(recall_windowed(f, v["events"], W))
+                        m, lo, hi = bootstrap_ci(per, B, SEED + int(a * 1000) + int(lam * 10))
+                        rows[variant].append(dict(regime=regime, a=a, lam=lam, corruption_p=p, eta=round(eta[p], 4),
+                                                  recall_mean=round(m, 4), ci_lo=round(lo, 4), ci_hi=round(hi, 4)))
+    cells = lambda rs: [[str(r[k]) for k in SYN_FIELDS] for r in rs]  # noqa: E731
+    tpds = list(csv.reader(open(RES / "corruption_sweep.csv", encoding="utf-8", newline="")))[1:]
+    d1 = sum(x != y for r1, r2 in zip(cells(rows["naive"]), tpds) for x, y in zip(r1, r2)) + abs(len(tpds) - len(rows["naive"]))
+    endn = [r for r in cells(rows["naive"]) if float(r[2]) in (0.0, 1.0)]
+    endb = [r for r in cells(rows["blockaware"]) if float(r[2]) in (0.0, 1.0)]
+    d2 = sum(x != y for r1, r2 in zip(endn, endb) for x, y in zip(r1, r2))
+    report = [f"S1 naive replay vs results/corruption_sweep.csv: {len(rows['naive'])} rows x {len(SYN_FIELDS)} cells, {d1} differences",
+              f"S2 block-aware vs TPDS at lam in {{0,1}}: {len(endb)} rows, {d2} cell differences"]
+    inter = {}
+    for r, q in zip(rows["naive"], rows["blockaware"]):
+        if 0 < r["lam"] < 1:
+            inter.setdefault(r["regime"], []).append(round(q["recall_mean"] - r["recall_mean"], 4))
+    summ = {"invariants": report, "invariant_failures": int(d1 > 0) + int(d2 > 0),
+            "intermediate_lambda": {rg: {"n_cells": len(v), "n_ba_better": sum(x > 0 for x in v), "n_ba_worse": sum(x < 0 for x in v),
+                                         "n_equal": sum(x == 0 for x in v), "max_gain": max(v), "max_loss": -min(v),
+                                         "mean_diff": round(float(np.mean(v)), 4)} for rg, v in inter.items()}}
+    with atomic_open(SYN_CSV) as fh:
+        w = csv.DictWriter(fh, fieldnames=SYN_FIELDS)
+        w.writeheader(); [w.writerow(r) for r in rows["blockaware"]]
+    atomic_write_text(SYN_JSON, json.dumps(summ, indent=1, ensure_ascii=False), encoding="utf-8")
+    for line in report:
+        print(line)
+    print("intermediate lambda (block-aware - naive):", summ["intermediate_lambda"])
+    sys.exit(1 if summ["invariant_failures"] else 0)
+
+
 if __name__ == "__main__":
-    main()
+    synthetic() if "--synthetic" in sys.argv else main()

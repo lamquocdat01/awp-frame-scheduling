@@ -89,6 +89,13 @@ ENTRIES: list[dict] = [
      "url": "https://proceedings.mlr.press/v206/christianson23a.html",
      "title": "Optimal Robustness-Consistency Tradeoffs for Learning-Augmented Metrical Task Systems",
      "author": "Christianson, Nicolas and Shen, Junxuan and Wierman, Adam"},
+    # P4 gap scan (24-10-2026): test-then-trust verification of advice; adversarial-arrival impossibility (cf. Thm 5-6)
+    {"key": "choo", "kind": "url", "year": "2024",
+     "booktitle": "Proceedings of the 41st International Conference on Machine Learning (ICML)",
+     "series": "Proceedings of Machine Learning Research", "volume": "235", "pages": "8762--8781",
+     "url": "https://proceedings.mlr.press/v235/choo24a.html",
+     "title": "Online Bipartite Matching with Imperfect Advice",
+     "author": "Choo, Davin and Gouleakis, Themistoklis and Ling, Chun Kai and Bhattacharyya, Arnab"},
     {"key": "anand2", "kind": "url", "year": "2022",
      "booktitle": "Proceedings of the 39th International Conference on Machine Learning (ICML)",
      "series": "Proceedings of Machine Learning Research", "volume": "162",

@@ -54,7 +54,8 @@ def get(rows, **kw):
     return None
 
 colors = plt.cm.viridis(np.linspace(0, 0.88, len(LAM)))
-sw = rd("corruption_sweep.csv")
+sw = rd("corruption_sweep.csv")                       # TPDS frame-level split (dashed control)
+ba = rd(os.path.join("v3", "corruption_sweep_blockaware.csv"))  # Algorithm 1 block-aware split (P4, solid)
 eta_noise = {p: float(get(sw, regime="noise", a=0.1, lam=0.0, corruption_p=p)["eta"]) for p in PG}
 
 fig, axes = plt.subplots(3, 2, figsize=(TEXT_IN, 2.55), sharey=True)
@@ -63,15 +64,21 @@ for row, a in enumerate(A_GRID):
     # ---- left column: noise regime ----
     ax = axes[row][0]
     for ci, lam in enumerate(LAM):
-        recs = [float(get(sw, regime="noise", a=a, lam=lam, corruption_p=p)["recall_mean"]) for p in PG]
+        recs = [float(get(ba, regime="noise", a=a, lam=lam, corruption_p=p)["recall_mean"]) for p in PG]
         ax.plot([eta_noise[p] for p in PG], recs, "-o", color=colors[ci], label=r"$\lambda$=%.2f" % lam)
+        if 0 < lam < 1:
+            rn = [float(get(sw, regime="noise", a=a, lam=lam, corruption_p=p)["recall_mean"]) for p in PG]
+            ax.plot([eta_noise[p] for p in PG], rn, "--", color=colors[ci], lw=0.8)
     ax.axvline(ETA_DEP, color="orange", lw=1.0)
     ax.set_ylabel("$R$ ($a$=%.3f)" % a)
     # ---- right column: adversarial regime ----
     ax2 = axes[row][1]
     for ci, lam in enumerate(LAM):
-        recs = [float(get(sw, regime="adversarial", a=a, lam=lam, corruption_p=p)["recall_mean"]) for p in PG]
+        recs = [float(get(ba, regime="adversarial", a=a, lam=lam, corruption_p=p)["recall_mean"]) for p in PG]
         ax2.plot(PG, recs, "-o", color=colors[ci], label=r"$\lambda$=%.2f" % lam)
+        if 0 < lam < 1:
+            rn = [float(get(sw, regime="adversarial", a=a, lam=lam, corruption_p=p)["recall_mean"]) for p in PG]
+            ax2.plot(PG, rn, "--", color=colors[ci], lw=0.8)
     for ax_ in (ax, ax2):
         ax_.axhline(c, ls="--", color="gray", lw=0.9)
         ax_.axhline(obl(a), ls=":", color="brown", lw=0.9)

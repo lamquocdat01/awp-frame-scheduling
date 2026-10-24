@@ -59,7 +59,8 @@ def get(d, path):
 def main():
     N = json.loads((REV / "numbers.json").read_text(encoding="utf-8"))
     tex = "".join((REV / f).read_text(encoding="utf-8") for f in
-                  ("paper_v3.tex", "numbers.tex", "S1_theory_supplement.tex", "S2_empirical_supplement.tex")
+                  ("paper_v3.tex", "numbers.tex", "S1_theory_supplement.tex", "S2_empirical_supplement.tex",
+                   "S1_proofs.tex", "S1_tab_beta.tex", "S2_tab_energy.tex")
                   if (REV / f).exists())
     rows, ok = [], 0
     for nid, desc, base, how in LOCKED:
