@@ -6,6 +6,7 @@ folder), 03_S1_theory_supplement.pdf, 04_S2_empirical_supplement.pdf, 05_cover_l
 07_abstract_keywords_ASCII.txt, MANIFEST.md (sha256). No file is edited by hand.
 """
 import hashlib
+import json
 import os
 import re
 import shutil
@@ -66,21 +67,39 @@ def data_manifest() -> list[str]:
     commit = subprocess.run(["git", "-C", str(REPO), "rev-parse", f"{rev}^{{commit}}"], capture_output=True,
                             text=True, check=True).stdout.strip()
     rows = []
+    fetched = PKG / "C7A_raw_fetch.json"  # written by v3_c7a_fetch.py after the push (anonymous raw fetch at TAG)
+    fx = json.loads(fetched.read_text(encoding="utf-8")) if fetched.exists() else None
+    if fx and fx.get("tag") != rev:
+        fx = None
+
+    def after(p):
+        if not fx:
+            return ""
+        r = fx["files"].get(p)
+        return "—" if r is None else ("= (raw fetch)" if r["match"] else "≠ " + r["raw_sha256"][:16])
     for path in DATA:
         b = git_bytes(rev, path)
         wd = TOPIC / path
         same = "=" if wd.exists() and wd.read_bytes() == b else ("(not in working folder)" if not wd.exists() else "DIFFERS")
-        rows.append(f"| `{path}` | {len(b)} | `{hashlib.sha256(b).hexdigest()}` | {same} | |")
+        rows.append(f"| `{path}` | {len(b)} | `{hashlib.sha256(b).hexdigest()}` | {same} | {after(path)} |")
     names = subprocess.run(["git", "-C", str(REPO), "ls-tree", "--name-only", f"{rev}:results/awp_cache"],
                            capture_output=True, text=True, check=True).stdout.split()
     listing = "".join(f"{hashlib.sha256(git_bytes(rev, 'results/awp_cache/' + n)).hexdigest()}  {n}\n" for n in sorted(names))
+    cache_after = ""
+    if fx:
+        m = sum(fx["files"].get("results/awp_cache/" + n, {}).get("match", False) for n in names)
+        cache_after = f"{m}/{len(names)} = (raw fetch)"
     rows.append(f"| `results/awp_cache/*.npz` ({len(names)} files; sha256 of the sorted `sha256sum` listing) | — | "
-                f"`{hashlib.sha256(listing.encode()).hexdigest()}` | | |")
+                f"`{hashlib.sha256(listing.encode()).hexdigest()}` | | {cache_after} |")
+    if fx:
+        rows.append("")
+        rows.append(f"C7(a) anonymous raw fetch {fx['fetched']} from `{fx['owner']}/{fx['repo']}` @ `{fx['tag']}`: "
+                    f"**{fx['n_match']}/{fx['n_files']} files match** (`code/v3_c7a_fetch.py`).")
     return ["", f"## C7(a) — derived data cited by the paper, as committed at `{rev}` (commit `{commit[:7]}`)", "",
             "Column *working folder*: `=` means the topic-folder copy is byte-identical. Column *after push*: after the "
             "author pushes the tag, fetch each file raw from GitHub at the tag "
             f"(`https://raw.githubusercontent.com/<owner>/<repo>/{TAG}/<path>`), hash it and fill in = / ≠. "
-            "The URL in the paper currently points to the TPDS repository (TODO #6).", "",
+            "The paper, S1/S2 and the cover letter point to github.com/lamquocdat01/awp-frame-scheduling @ " + TAG + ".", "",
             "| path | bytes | sha256 | working folder | after push (raw @ tag) |", "|---|---|---|---|---|"] + rows
 
 
