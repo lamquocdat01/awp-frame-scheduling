@@ -74,7 +74,7 @@ def s1():
     L += open(V3 / "thm3_hedge_audit.txt", encoding="utf-8").read().splitlines()
     L += [r"\end{verbatim}}",
           r"\section*{S1.6 Numerical cross-check of the frontier}",
-          r"\texttt{validate\_frontier.py} evaluates \textsc{SAT-GATE} on the canonical family ($N=2000$) for $\beta\in\{0.2,\allowbreak 0.4,\allowbreak 0.6,\allowbreak 0.8,\allowbreak 0.9\}$; the maximum deviation of its $(c,r)$ from $r^\star(c)$ is below $10^{-3}$ at every $\beta$.",
+          r"\texttt{theory/validate\_frontier.py} evaluates \textsc{SAT-GATE} on the canonical family ($N=2000$) for $\beta\in\{0.2,\allowbreak 0.4,\allowbreak 0.6,\allowbreak 0.8,\allowbreak 0.9\}$; the maximum deviation of its $(c,r)$ from $r^\star(c)$ is below $10^{-3}$ at every $\beta$.",
           r"\end{document}"]
     atomic_write_text(REV / "S1_theory_supplement.tex", "\n".join(L) + "\n", encoding="utf-8")
 
