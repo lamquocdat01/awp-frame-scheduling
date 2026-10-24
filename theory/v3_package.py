@@ -20,12 +20,13 @@ TOPIC = Path(__file__).resolve().parents[1]
 REV = TOPIC / "Revision_v3"
 PKG = TOPIC / "submission_package" / "EJOR"
 REPO = Path(os.environ.get("AWP_REPO", r"D:\Repos\awp-frame-scheduling"))
-TAG = "v3.0.0-staging"
+TAG = "v3.0.1-staging"
 # every derived data file the paper / supplements rely on (C7(a): hash now, re-hash the raw GitHub files after push)
 DATA = ["Revision_v3/numbers.json", "Revision_v3/numbers.tex", "Revision_v3/S2_percategory_v3.csv",
         "results/v3/a8a_summary.json", "results/v3/a8a_ceiling.csv", "results/v3/a8a_sv_worstcase.csv",
         "results/v3/a8a_sv_family_all.csv", "results/v3/a8c_summary.json", "results/v3/a8c_alloc.csv",
-        "results/v3/a8c_T2.csv", "results/v3/thm3_hedge_audit.txt", "results/percategory.csv",
+        "results/v3/a8c_T2.csv", "results/v3/thm3_hedge_audit.txt", "results/v3/corruption_sweep_REAL_blockaware.csv",
+        "results/v3/sweep_blockaware_summary.json", "results/percategory.csv",
         "results/metrics_summary_REAL.json", "results/corruption_sweep_REAL.csv", "results/metrics_summary.json",
         "results/frontier_general.csv", "results/learned_cue_probe.json", "results/anchors_pa.csv",
         "energy/fit.json"]

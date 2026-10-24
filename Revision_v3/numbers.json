@@ -738,6 +738,21 @@
    }
   ]
  },
+ "sweep_blockaware": {
+  "n_cells": 54,
+  "mean_diff": 0.0135,
+  "min_diff": -0.0267,
+  "max_diff": 0.0667,
+  "n_ba_better": 30,
+  "n_ba_worse": 6,
+  "n_equal": 18,
+  "max_gain": 0.067,
+  "max_loss": 0.027,
+  "worse_ci_overlap_all": true,
+  "n_better_ci_disjoint": 1,
+  "ba_below_periodic_all": true,
+  "invariant_failures": 0
+ },
  "learned_cue": {
   "auc_cross_baseline": 0.3994,
   "auc_cross_learned": 0.6075,

@@ -46,3 +46,28 @@ beta=0.8 mode=skip: max gap 0.003
    lam=0.8 c=0.839 r=0.788 r*(c)-r=0.002
    lam=0.9 c=0.820 r=0.792 r*(c)-r=0.003
    lam=1.0 c=0.800 r=0.797 r*(c)-r=0.003
+EXACT (rational arithmetic, all backbone draws enumerated)
+  N=10 m=8 beta=0.8 lam=1/4 uniform-subset backbone, uniform choice: c=0.9500 r=0.7625 r*(c)=0.7625 gap=0.0000
+      advised marginals 0.9500
+  N=10 m=8 beta=0.8 lam=1/4 uniform-subset backbone, fixed-order choice: c=0.9500 r=0.7500 r*(c)=0.7625 gap=0.0125
+      advised marginals 0.6667/0.9333/1.0000
+  N=10 m=8 beta=0.8 lam=1/4 periodic backbone, uniform choice: c=0.9500 r=0.7571 r*(c)=0.7625 gap=0.0054
+      advised marginals 0.9429/0.9714
+  N=10 m=8 beta=0.8 lam=1/4 periodic backbone, fixed-order choice: c=0.9500 r=0.7500 r*(c)=0.7625 gap=0.0125
+      advised marginals 0.6000/1.0000
+  N=20 m=16 beta=0.8 lam=1/4 uniform-subset backbone, uniform choice: c=0.9500 r=0.7625 r*(c)=0.7625 gap=0.0000
+      advised marginals 0.9500
+  N=20 m=16 beta=0.8 lam=1/4 uniform-subset backbone, fixed-order choice: c=0.9500 r=0.7500 r*(c)=0.7625 gap=0.0125
+      advised marginals 0.4817/0.7822/0.9432/0.9928/1.0000
+  N=20 m=16 beta=0.8 lam=1/4 periodic backbone, uniform choice: c=0.9500 r=0.7571 r*(c)=0.7625 gap=0.0054
+      advised marginals 0.9429/0.9714
+  N=20 m=16 beta=0.8 lam=1/4 periodic backbone, fixed-order choice: c=0.9500 r=0.7500 r*(c)=0.7625 gap=0.0125
+      advised marginals 0.6000/1.0000
+  N=10 m=4 beta=0.4 lam=1/2 uniform-subset backbone, uniform choice: c=0.7000 r=0.2000 r*(c)=0.2000 gap=0.0000
+      advised marginals 0.7000
+  N=10 m=4 beta=0.4 lam=1/2 uniform-subset backbone, fixed-order choice: c=0.7000 r=0.2000 r*(c)=0.2000 gap=0.0000
+      advised marginals 0.2667/0.5333/1.0000
+  N=10 m=4 beta=0.4 lam=1/2 periodic backbone, uniform choice: c=0.7000 r=0.2000 r*(c)=0.2000 gap=0.0000
+      advised marginals 0.7000
+  N=10 m=4 beta=0.4 lam=1/2 periodic backbone, fixed-order choice: c=0.7000 r=0.2000 r*(c)=0.2000 gap=0.0000
+      advised marginals 0.2000/0.6000/1.0000

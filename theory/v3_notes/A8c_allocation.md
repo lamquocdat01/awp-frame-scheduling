@@ -54,3 +54,10 @@ Define the *non-concavity gap* $\gamma(c):=\max_{\beta\in[0,c]}\big(\beta-V_c(\b
 **Worked check (Remark `rem:skew`, $W=7$, $n=2$, $w=\frac12$, $\bar a=0.0625$, $c=1$):** $b=1$; uniform $\beta_i=0.5$ gives $0$ (Proposition 6); the Remark's split $(0.2,0.8)$ gives $0.375$; Theorem 7(A2) gives $(1,0)$, value $\frac12\cdot1=0.5=U$ — the optimum, since $U$ is an upper bound.
 
 **Which model is right?** T1 is the paper's worst case: the adversary picks, at every node, the hardest instance for that node's budget, and Theorem 2's tightness is with respect to exactly this family. T2 is the natural model when per-node event loads are known and fixed. The two give opposite operator rules (concentrate vs. water-fill); the paper states both and the limitation explicitly.
+
+---
+### P3C addendum (22–24-10-2026) — Lemma 3: the Model T2 frontier, converse and attainment (as now in the paper's Appendix)
+Canonical family, $N$ blocks, $m=\mu N$ events, budget $B=\beta N$, advised set $|A|=m$; non-adaptive gate with marginals $p_b\in[0,1]$, $\sum p_b\le B$; consistency $c=\frac1m\sum_{A}p_b$; robustness $r=\min_{|E|=m}\frac1m\sum_{E}p_b$ (full adversary, as in §6).
+*Converse.* $mc\le B$ (feasibility). $S:=\sum_{b\notin A}p_b\le B-mc$. $E=A$ gives $r\le c$. If $\mu\le\frac12$: $E$ = the $m$ smallest non-advised, sum $\le\frac{m}{N-m}S$ ⇒ $r\le\frac{\beta-\mu c}{1-\mu}$. If $\mu>\frac12$: $E$ = all $N-m$ non-advised + the $2m-N$ smallest advised (sum $\le\frac{2m-N}{m}mc$) ⇒ $mr\le B-(N-m)c$ ⇒ $r\le\frac{\beta-(1-\mu)c}{\mu}$.
+*Attainment.* $p_b=c$ on $A$, $p_b=\min\{1,g\}$ off $A$, $g=\frac{B-mc}{N-m}$; the $m$ smallest values give exactly the two branches (and $r=c$ when $g\ge c$). Realised with $\le B$ activations surely by dependent rounding. For $\mu=\beta$ this is Theorem 2.
+This replaces the earlier "repeat the converse of Theorem 2 with $m\neq B$" sketch: with the full-adversary robustness the converse needs no instance-pair (mislabelled-$\eta$) argument, so the question whether that argument used $m=B$ no longer arises.

@@ -5,6 +5,7 @@ set -e
 cd "$(dirname "$0")/.."
 export PYTHONIOENCODING=utf-8
 python code/v3_tables.py
+python code/v3_fig5.py
 python code/v3_numbers.py --check
 python code/v3_supplement.py
 python code/v3_build_paper.py

@@ -7,12 +7,15 @@ layout (scripts in theory/) and in the working folder (scripts in code/).
 
 Phase 0  SNAPSHOT  copy every committed reference output to a temporary folder (before anything is rewritten).
 Phase 1  GENERATE  run the generators to completion, one after the other:
-                   [v3_a8a_mc.py] -> v3_a8c_alloc.py -> v3_numbers.py ; all outputs are written atomically (v3_io).
+                   [v3_a8a_mc.py] -> v3_a8c_alloc.py -> v3_sweep_blockaware.py -> v3_numbers.py
+                   -> v3_check_thm3_hedge.py (stdout -> results/v3/thm3_hedge_audit.txt);
+                   all outputs are written atomically (v3_io).
 Phase 2  CHECK     only after phase 1 has finished:
                    (a) v3_regen_tpds_results.py: TPDS real-data/synthetic artefacts regenerated from source and
                        compared with results/ (sha256 / key by key);
                    (b) numbers.json key by key vs the snapshot (floats to 1e-9, everything else exact) and the
                        in-script re-verification list _verification_failures must be empty;
+                       v3_sweep_blockaware.py exits 0 only if its lambda in {0,1} invariants hold;
                    (c) a8c_summary.json (and a8a_summary.json with --full) key by key; every regenerated CSV
                        cell by cell (exact string match); numbers.tex byte for byte.
 Exit code 0 iff phase 2 reports 0 differences.
@@ -33,11 +36,12 @@ REV = TOPIC / "Revision_v3"
 RES = TOPIC / "results"
 ENV = dict(os.environ, PYTHONUTF8="1", PYTHONIOENCODING="utf-8")
 
-JSON_ALWAYS = [REV / "numbers.json", RES / "v3" / "a8c_summary.json"]
+JSON_ALWAYS = [REV / "numbers.json", RES / "v3" / "a8c_summary.json", RES / "v3" / "sweep_blockaware_summary.json"]
 JSON_FULL = [RES / "v3" / "a8a_summary.json"]
-CSV_ALWAYS = [RES / "v3" / "a8c_alloc.csv", RES / "v3" / "a8c_T2.csv", REV / "S2_percategory_v3.csv"]
+CSV_ALWAYS = [RES / "v3" / "a8c_alloc.csv", RES / "v3" / "a8c_T2.csv", REV / "S2_percategory_v3.csv",
+              RES / "v3" / "corruption_sweep_REAL_blockaware.csv"]
 CSV_FULL = [RES / "v3" / n for n in ("a8a_ceiling.csv", "a8a_sv_worstcase.csv", "a8a_sv_family_all.csv")]
-BYTES_ALWAYS = [REV / "numbers.tex"]
+BYTES_ALWAYS = [REV / "numbers.tex", RES / "v3" / "thm3_hedge_audit.txt"]
 
 
 def run(script, *args, check=True):
@@ -101,7 +105,13 @@ def main():
     if a.full:
         run("v3_a8a_mc.py")
     run("v3_a8c_alloc.py")
+    sweep_rc = run("v3_sweep_blockaware.py", check=False)
     run("v3_numbers.py")
+    audit = subprocess.run([sys.executable, str(HERE / "v3_check_thm3_hedge.py")], check=True, env=ENV,
+                           capture_output=True).stdout
+    tmp = RES / "v3" / "thm3_hedge_audit.txt.tmp"
+    tmp.write_bytes(audit)
+    os.replace(tmp, RES / "v3" / "thm3_hedge_audit.txt")
     print("[phase 1] done", flush=True)
 
     # ---- phase 2: check -------------------------------------------------------------------------
@@ -115,6 +125,9 @@ def main():
     for f in fails:
         print("    FAIL", f)
     total += len(fails)
+    print(f"  v3_sweep_blockaware.py invariants (lambda in {{0,1}} = TPDS rows; naive replay = TPDS file): "
+          f"{'0 failures' if sweep_rc == 0 else 'FAILED'}")
+    total += sweep_rc != 0
     for p in jsons:
         n, diffs = cmp_json(ref[p], p)
         print(f"  {p.relative_to(TOPIC)}: {n} keys, {len(diffs)} differences vs committed")

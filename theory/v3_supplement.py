@@ -6,6 +6,7 @@ outputs (no number typed by hand):
 """
 import csv
 import json
+import re
 from pathlib import Path
 from v3_io import atomic_write_text  # noqa: E402  (atomic writes, C7)
 
@@ -67,10 +68,11 @@ def s1():
     L += [r"\bottomrule\end{longtable}"]
     # Theorem 3 audit
     L += [r"\section*{S1.5 Theorem 3: block-aware versus naive budget split}",
-          r"Monte Carlo estimate of per-block activation probabilities ($N{=}200$, $2000$ draws per $\lambda$, seed $42$; \texttt{code/v3\_check\_thm3\_hedge.py}) for HEDGE-GATE whose advice arm skips blocks already activated by the backbone (Algorithm~1, block-aware) and for a naive split in which both arms may activate the same block. The block-aware split meets the frontier up to Monte Carlo error at both budgets; the naive split does not.",
-          r"\begin{verbatim}"]
+          r"Monte Carlo estimate of per-block activation probabilities ($N{=}200$, $2000$ draws per $\lambda$, seed $42$; \texttt{theory/v3\_check\_thm3\_hedge.py}) for HEDGE-GATE whose advice arm skips blocks already activated by the backbone and draws uniformly among the rest (Algorithm~1, block-aware; backbone a uniformly random set of $\lambda B$ blocks) and for a naive split in which both arms may activate the same block. The block-aware split meets the frontier up to Monte Carlo error at both budgets; the naive split does not.",
+          r"The final block (EXACT) enumerates every backbone draw in rational arithmetic on small instances and isolates the two symmetry conditions used in the proof of Theorem~3 (Remark \emph{What the two uniform draws buy}): with a uniformly random backbone set and a uniform choice among the free advised blocks the gap to $r^\star(c)$ is exactly $0$; a fixed tie-breaking order, or a period-$5$ backbone whose residue classes the advised set meets unequally, makes the advised marginals unequal, and the robustness falls below $r^\star(c)$ at $\beta=0.8$; at $\beta=0.4$ neither matters.",
+          r"{\scriptsize\begin{verbatim}"]
     L += open(V3 / "thm3_hedge_audit.txt", encoding="utf-8").read().splitlines()
-    L += [r"\end{verbatim}",
+    L += [r"\end{verbatim}}",
           r"\section*{S1.6 Numerical cross-check of the frontier}",
           r"\texttt{validate\_frontier.py} evaluates \textsc{SAT-GATE} on the canonical family ($N=2000$) for $\beta\in\{0.2,\allowbreak 0.4,\allowbreak 0.6,\allowbreak 0.8,\allowbreak 0.9\}$; the maximum deviation of its $(c,r)$ from $r^\star(c)$ is below $10^{-3}$ at every $\beta$.",
           r"\end{document}"]
@@ -83,7 +85,7 @@ def s2():
          r"\begin{center}{\Large Supplementary material S2: empirical supplement}\\[4pt]",
          r"\emph{Learning-augmented scheduling under hard activation budgets} --- L.~Q.~Dat\end{center}",
          r"\section*{S2.1 Per-category breakdown of the real-data study}",
-         rf"Windowed coverage ($W{{=}}7$), uncapped, ROI-aligned; {N['c121_videos_ge2']} videos with at least two events. Values are recomputed from the cached per-video cues by \texttt{{code/v3\_numbers.py}} and match \texttt{{results/percategory.csv}} row by row.",
+         rf"Windowed coverage ($W{{=}}7$), uncapped, ROI-aligned; {N['c121_videos_ge2']} videos with at least two events. Values are recomputed from the cached per-video cues by \texttt{{theory/v3\_numbers.py}} and match \texttt{{results/percategory.csv}} row by row.",
          r"\begin{table}[h]\centering\caption{Per-category breakdown: motion gate vs.\ periodic at $a\in\{0.1,0.2\}$; AUC is the cue onset-AUC.}\label{tab:S2percat}",
          r"\begin{tabular}{lrrcccccc}\toprule group & videos & events & AUC & gate$_{.1}$ & per.$_{.1}$ & gate$_{.2}$ & per.$_{.2}$ & gap$_{.2}$\\\midrule"]
     for r in csv.DictReader(open(REV / "S2_percategory_v3.csv", encoding="utf-8")):
@@ -106,10 +108,47 @@ def s2():
           "gap & " + " & ".join(f"${f3(gv[a]['gap'])}$" for a in (0.1, 0.2, 0.333)) + r"\\",
           r"\bottomrule\end{tabular}\end{table}",
           r"\section*{S2.4 Calibrated synthetic corruption sweep}",
-          r"Synthetic event streams calibrated to the measured sparse duration law (median $1$, mean $\approx6$, CV $\approx4.7$; $40$ videos of $1500$ frames, seed $42$) with permutation noise $p\in\{0,0.2,\dots,1\}$ traverse the full range of $\eta$. Simulated periodic coverage matches $\beta$ within bootstrap noise ($0.78/1.00/1.00$ at $a=0.1/0.2/0.333$); under uninformative noise HEDGE-GATE coverage is affine in $\eta$ (Pearson $r$ up to $-0.99$; Proposition~4); under adversarial advice the pure gate collapses toward $0$ while HEDGE-GATE holds its floor $\lambda\beta$ (Theorem~1$'$).",
+          r"Synthetic event streams calibrated to the measured sparse duration law (median $1$, mean $\approx6$, CV $\approx4.7$; $40$ videos of $1500$ frames, seed $42$) with permutation noise $p\in\{0,0.2,\dots,1\}$ traverse the full range of $\eta$. Simulated periodic coverage matches $\beta$ within bootstrap noise ($0.78/1.00/1.00$ at $a=0.1/0.2/0.333$); under uninformative noise HEDGE-GATE coverage is affine in $\eta$ (Pearson $r$ up to $-0.99$; Proposition~4); under adversarial advice the pure gate collapses toward $0$ while HEDGE-GATE holds its floor $\lambda\beta$ (Theorem~1$'$). This synthetic sweep is carried over unchanged from the earlier version and uses its frame-level split at $0<\lambda<1$ (the dashed control of Fig.~7 in the paper, see S2.5); the endpoints $\lambda\in\{0,1\}$ are the same policies under either split, and the floor $\lambda\beta$ of Theorem~1$'$ comes from the backbone alone, so it holds for both splits.",
           r"\begin{figure}[h]\centering\includegraphics[width=7.14in]{figures/fig24.png}\caption{Two failure modes (rows: $a{=}0.1,0.2,0.333$). Left, noise regime: coverage affine in $\eta$ for each $\lambda$. Right, adversarial regime: the pure gate collapses below the oblivious level while HEDGE-GATE holds $\lambda\beta$. Dashed: periodic certificate; dotted: oblivious-random level; orange: the deployed cue's error $\eta=1-\mathrm{AUC}_{\text{onset}}$ on the 121-video corpus.}\end{figure}",
-          r"\end{document}"]
+          ] + s2_sweep() + [r"\end{document}"]
     atomic_write_text(REV / "S2_empirical_supplement.tex", "\n".join(L) + "\n", encoding="utf-8")
+
+
+def s2_sweep():
+    """S2.5: the real-data trust-dial sweep (fig5) under both splits."""
+    ba = list(csv.DictReader(open(V3 / "corruption_sweep_REAL_blockaware.csv", encoding="utf-8")))
+    nv = list(csv.DictReader(open(RES / "corruption_sweep_REAL.csv", encoding="utf-8")))
+    S = json.loads((V3 / "sweep_blockaware_summary.json").read_text(encoding="utf-8"))
+    I = S["intermediate_lambda"]
+    diffs = [v["diff_ba_minus_naive"] for v in S["rows"].values()]
+
+    def cell(rows, a, lam, p):
+        return next(r for r in rows if abs(float(r["a"]) - a) < 1e-9 and abs(float(r["lam"]) - lam) < 1e-9
+                    and abs(float(r["corruption_p"]) - p) < 1e-9)
+
+    L = [r"\section*{S2.5 Real-data trust-dial sweep: block-aware versus frame-level split}",
+         r"Fig.~7 of the paper sweeps HEDGE-GATE$(\lambda)$, $\lambda\in\{0,0.25,0.5,0.75,1\}$, on the 77-video corpus with the cue corrupted by permuting a fraction $p$ of its values. \emph{Block-aware} is Algorithm~1 at frame level (\texttt{theory/v3\_sweep\_blockaware.py}): the advised epochs are the $B$ epochs of highest cue score, an epoch is free if its window $[t-W,t]$ holds no backbone activation, and the advice arm draws uniformly among the free advised epochs (then, if short, the free epochs of highest score). \emph{Frame-level} is the split of the earlier (TPDS) version, used there for this figure: its advice arm takes the highest-score frames not fired by the backbone, whether or not their window is already covered. Both use the same backbone, the periodic schedule at phase $0$ (round$(\lambda B)$ activations evenly spaced), as Table~5 of the paper does at $\lambda=1$; the cue and the events do not depend on the phase. Seeds are those of the earlier version: corruption $42+7+\lfloor100p\rfloor$, $\eta$ estimate $42+\lfloor100p\rfloor$, video-level bootstrap $42+\lfloor1000a\rfloor+\lfloor10\lambda\rfloor$ ($B=1000$); the uniform draw uses its own stream seeded by $(42+\lfloor1000a\rfloor+\lfloor10\lambda\rfloor,\ \mathrm{round}(100p))$.",
+         r"\emph{Invariants} (%d failures). Replaying the frame-level split reproduces all %s$\times$%s cells of \texttt{results/corruption\_sweep\_REAL.csv}; at $\lambda\in\{0,1\}$ the block-aware split activates the same frames as the frame-level split in all %s per-video runs, so its %s endpoint rows are identical."
+         % ((S["invariant_failures"],) + re.search(r"(\d+) rows x (\d+) cells", S["invariants"][0]).groups()
+            + (re.search(r"(\d+) per-video", S["invariants"][1]).group(1), re.search(r"(\d+) rows", S["invariants"][1]).group(1))),
+         r"\emph{Result.} At $0<\lambda<1$ the block-aware split is higher in %d of %d cells (by up to %.3f), equal in %d (both at coverage $1$) and lower in %d (by at most %.3f, always with overlapping $95\%%$ intervals); every $\lambda<1$ stays at or below the periodic schedule under both splits. Table~\ref{tab:S2sweep} gives the deployed cue ($p=0$) and the fully permuted cue ($p=1$)."
+         % (I["n_ba_better"], I["n_cells"], max(diffs), I["n_equal"], I["n_ba_worse"], -min(diffs)),
+         r"\begin{table}[h]\centering\caption{Real-data sweep: coverage block-aware (Algorithm~1) / frame-level (earlier version), $95\%$ video-level bootstrap intervals in brackets.}\label{tab:S2sweep}",
+         r"\small\begin{tabular}{llcc}\toprule $a$ & $\lambda$ & $p=0$ ($\eta=%.3f$) & $p=1$ ($\eta=%.3f$)\\\midrule"
+         % (float(cell(ba, 0.1, 0.0, 0.0)["eta"]), float(cell(ba, 0.1, 0.0, 1.0)["eta"]))]
+    for a in (0.1, 0.2, 0.333):
+        for lam in (0.0, 0.25, 0.5, 0.75, 1.0):
+            out = []
+            for p in (0.0, 1.0):
+                b, n = cell(ba, a, lam, p), cell(nv, a, lam, p)
+                out.append(f"{f3(b['recall_mean'])} [{f3(b['ci_lo'])},{f3(b['ci_hi'])}] / "
+                           f"{f3(n['recall_mean'])} [{f3(n['ci_lo'])},{f3(n['ci_hi'])}]")
+            L.append(f"{a:g} & {lam:g} & " + " & ".join(out) + r"\\")
+        if a != 0.333:
+            L.append(r"\midrule")
+    L += [r"\bottomrule\end{tabular}\end{table}",
+          r"\noindent All $90$ cells of both splits: \texttt{results/v3/corruption\_sweep\_REAL\_blockaware.csv} and \texttt{results/corruption\_sweep\_REAL.csv}; side by side: \texttt{results/v3/sweep\_blockaware\_summary.json}."]
+    return L
 
 
 if __name__ == "__main__":

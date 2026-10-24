@@ -74,6 +74,10 @@ Paper v3 (target: European Journal of Operational Research) adds the limits of f
 (Theorems 4-6, Corollary 7, Conjecture 8), optimal tier budget allocation (Theorem 7), and corrects the
 HEDGE-GATE clause of Theorem 3 (the block-aware split of Algorithm 1 is Pareto-optimal in every regime; the
 previously reported 0.19 gap belongs to a naive overlapping split). Notes with full proofs: `theory/v3_notes/`.
+v3.0.1 (P3C): Algorithm 1 states the two uniform draws the proof of Theorem 3 needs (uniformly random backbone
+set on the canonical family; uniform choice among the free advised blocks), and the real-data trust-dial sweep
+(fig5, supplement S2.5) is re-run with that split (`theory/v3_sweep_blockaware.py`; the lambda in {0,1} rows are
+identical to the TPDS sweep, checked).
 
 ```bash
 python -m venv .venv && .venv/Scripts/pip install -r requirements-v3.txt   # (.venv/bin on Linux/macOS)
@@ -95,7 +99,10 @@ byte-identical to the ones regenerated from source (`theory/v3_regen_tpds_result
 | `theory/v3_numbers.py` | every number of the v3 paper from `results/awp_cache/*.npz` (per-video cue + event mask, derived; no video) and `energy/fit.json`; re-verifies the TPDS Table III and `results/percategory.csv` row by row |
 | `theory/v3_a8a_mc.py` | adaptive gates: ceiling check, sprinkle-and-verify against the adversary family (seeds 42-46) |
 | `theory/v3_a8c_alloc.py` | tier allocation: uniform vs exact DP vs bang-bang vs envelope bound (n = 8/32/128) |
-| `theory/v3_check_thm3_hedge.py` | audit of the Theorem 3 correction |
+| `theory/v3_check_thm3_hedge.py` | audit of the Theorem 3 correction (Monte Carlo + exact enumeration of the two uniform draws) |
+| `theory/v3_sweep_blockaware.py` | real-data trust-dial sweep with the block-aware split of Algorithm 1 (fig5, S2.5); checks the lambda in {0,1} invariants |
+| `theory/v3_fig5.py` | fig5: block-aware (solid) vs the TPDS frame-level split (dashed) |
+| `theory/v3_path_check.py` | every file path printed in the paper/supplements exists in this repository |
 | `theory/v3_regen_tpds_results.py` | regenerates the TPDS result files from source and compares them (sha256 / key by key) |
 | `theory/v3_io.py` | atomic writes used by every v3 script |
 | `theory/v3_figures.py`, `v3_fig24.py` | 300-dpi redraws at printed size |
