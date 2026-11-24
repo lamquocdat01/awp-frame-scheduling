@@ -3,7 +3,7 @@
 Code and derived data for *"Learning-augmented scheduling under hard activation budgets: tight
 consistency--robustness bounds, the limits of feedback, and optimal budget allocation"* (Lam Quoc Dat,
 School of Business and Technology, FPT University), **version 3, submitted to the European Journal of
-Operational Research**. Release tag of the submitted version: **`v3.0.1-submission`**.
+Operational Research**. Release tag of the submitted version: **`v3.1.0-submission`** (earlier tag `v3.0.1-submission` kept for the record).
 
 The paper proves the exact consistency--robustness frontier of online activation under a hard budget with
 untrusted predictions (non-adaptive policies), the limits of feedback for adaptive policies (ceiling, price of
@@ -25,6 +25,19 @@ CDnet2014) are **not** redistributed here and are available from their maintaine
 truncated (see the erratum below). Its history is also contained in this repository.
 
 **License.** MIT — see `LICENSE`.
+
+## Version 3.1.0 (revision before submission)
+- One definition of consistency and robustness (worst case over the event set and over the position of the
+  prediction) and one definition of the prediction error; `1 - AUC_onset` is reported only as a proxy.
+- Algorithm 1: the backbone thins the random-phase stride-K schedule (each epoch kept with probability lambda), so
+  the floor `lambda*beta` holds exactly for every budget; the real-data table and sweep are re-run with this
+  randomised backbone (`theory/p5_sweep_alg1.py`, 5 seeds) and reported next to the deterministic one.
+- Feedback: the early-verification proposition (advice first) and the zero-gap threshold; the conjecture of v3.0
+  is replaced by a theorem on the exponential rate of the price of near-consistency (asymptotic; exponents match in
+  order, not in constant).
+- Every changed statement is checked by `finite_horizon/p5_checks.py` (see `finite_horizon/README.md`).
+- Vocabulary of the paper changed from systems terms (gate, cue, frame) to decision terms (policy, prediction,
+  epoch); script and file names are unchanged.
 
 ## Version 3 — what is new and what the reproduction checks
 Paper v3 (target: European Journal of Operational Research) adds the limits of feedback for adaptive gates

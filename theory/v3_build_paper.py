@@ -38,6 +38,44 @@ def blocks(text: str) -> list[tuple[str, str]]:
     return out
 
 
+# P5B PHA 2 (24-11-2026): EJOR framing. Baseline blocks are inserted through ONE documented transform:
+# numbered environments + labels, systems -> OR vocabulary, references to the new labels, and one listed
+# MINOR fix (R2 item 30). The --check step compares every baseline block AFTER this transform.
+ENV_MAP = {"lem": "lemma", "lemtwo": "lemma", "lemthree": "lemma", "thmone": "proposition", "thmonep": "proposition",
+           "thmtwo": "theorem", "thmthree": "theorem", "propfour": "remark", "propfive": "proposition",
+           "propsix": "proposition", "cor": "corollary", "defn": "definition", "rem": "remark", "proof": "proof"}
+LABELS = {"lem#1": "lem:periodic", "thmtwo#1": "thm:frontier", "defn#1": "def:nonadaptive", "cor#1": "cor:ratio",
+          "propfour#1": "rem:smooth", "propsix#1": "prop:tier", "rem#1": "rem:onset"}
+# (regex, literal replacement); applied in order
+VOCAB = [(r"\\textsc\{SAT-GATE\}", r"\textsc{Sat-Policy}"), (r"HEDGE-GATE", r"\textsc{Hedge}"),
+         (r"score-gates", "score policies"), (r"\bgates\b", "policies"), (r"\bgate's\b", "policy's"),
+         (r"\bgate\b", "policy"), (r"\bGate\b", "Policy"),
+         (r"\bcontains a fire\b", "contains an activation"), (r"\bConsecutive fires\b", "Consecutive activations"),
+         (r"\bFires lie\b", "Activations lie"), (r"\bfires\b", "activates"), (r"\bfired\b", "activated"),
+         (r"\bfiring\b", "activation"), (r"\bfire\b", "activate"),
+         (r"\(top-cue\)", "(top-score)"), (r"\bcues\b", "predictions"), (r"\bcue\b", "prediction"),
+         (r"detector hit/miss feedback", "outcome feedback"),
+         (r"\bframes-on-event\b", "epochs-on-event"), (r"\bframes\b", "epochs"), (r"\bframe\b", "epoch")]
+REFS = [(r"Lemma~1\b", r"Lemma~\ref{lem:periodic}"), (r"Theorem~2\b", r"Theorem~\ref{thm:frontier}"),
+        (r"Proposition~6\b", r"Proposition~\ref{prop:tier}"), (r"Def\.~\\ref\{def:sat\}", r"Definition~\ref{def:sat}"),
+        (r"\(Assumption~A, Appendix\)", "(Assumption~A below)")]
+FIXES = {"thmtwo#1": [(r"\(1\{\+\}\\varepsilon\)-consistent", r"(1{-}\varepsilon)-consistent")],      # R2 item 30
+         "rem#4": [(r"two nodes carrying equally many events", "two nodes of equal weight")]}           # R2 item 7
+
+
+def transform(key: str, block: str) -> str:
+    env = key.split("#")[0]
+    new = ENV_MAP[env]
+    head = re.match(r"\\begin\{" + env + r"\}(\[[^\]]*\])?", block)
+    lab = LABELS.get(key)
+    out = ("\\begin{" + new + "}" + (head.group(1) or "") + (("\\label{" + lab + "}") if lab else "")
+           + block[head.end():])
+    out = out[: out.rindex("\\end{" + env + "}")] + "\\end{" + new + "}"
+    for pat, rep in VOCAB + REFS + FIXES.get(key, []):
+        out = re.sub(pat, lambda _m, r=rep: r, out)
+    return out
+
+
 def base_text() -> str:
     raw = BASE.read_bytes()
     if hashlib.sha256(raw).hexdigest() != BASE_SHA:
@@ -64,12 +102,13 @@ def main() -> None:
                  f"S1_proofs.tex sha256 {hashlib.sha256(s1.encode()).hexdigest()} (complete proofs, supplement S1)", ""]
         n_ok = 0
         for k, v in blocks(bt):
-            where = "paper_v3.tex" if v in paper else ("S1_proofs.tex" if v in s1 else None)
+            tv = transform(k, v)
+            where = "paper_v3.tex" if tv in paper else ("S1_proofs.tex" if tv in s1 else None)
             n_ok += where is not None
-            lines.append(f"{k:12s} sha256 {hashlib.sha256(v.encode()).hexdigest()[:16]}  "
+            lines.append(f"{k:12s} sha256 {hashlib.sha256(v.encode()).hexdigest()[:16]} (transformed {hashlib.sha256(tv.encode()).hexdigest()[:16]})  "
                          f"{'IDENTICAL in ' + where if where else 'NOT PRESENT VERBATIM'}")
         lines.append("")
-        lines.append(f"{n_ok}/{len(bb)} baseline blocks present byte-identical (paper_v3.tex or S1_proofs.tex)")
+        lines.append(f"{n_ok}/{len(bb)} baseline blocks present byte-identical after the documented transform (paper_v3.tex or S1_proofs.tex)")
         atomic_write_text(REV / "INVARIANTS_CHECK_blocks.txt", "\n".join(lines) + "\n", encoding="utf-8")
         print("\n".join(lines[-3:]))
         return
@@ -82,7 +121,7 @@ def main() -> None:
         if key in used:
             sys.exit(f"baseline block {key} inserted twice")
         used.append(key)
-        return bb[key]
+        return transform(key, bb[key])
 
     # P4 (EJOR 30-page limit): long proofs live in supplement S1; S1_proofs_template.tex takes %%BASE markers too
     for src, dst in (("paper_v3_template.tex", "paper_v3.tex"), ("S1_proofs_template.tex", "S1_proofs.tex")):

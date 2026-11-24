@@ -85,7 +85,15 @@ def main():
           "**Intentional deviation (needs author approval):** `thmthree#1` + `proof#6` (Theorem 3 and its proof) are "
           "replaced by a corrected statement: HEDGE-GATE as specified by Algorithm 1 (block-aware advice arm, uniform draws) realises "
           "SAT-GATE and is Pareto-optimal in every regime; the 0.19 gap belongs to a naive overlapping split. Evidence: "
-          "`code/v3_check_thm3_hedge.py`, `results/v3/thm3_hedge_audit.txt`, `P_LOG_03_v3.md`. All other 23 blocks are byte-identical.", "",
+          "`code/v3_check_thm3_hedge.py`, `results/v3/thm3_hedge_audit.txt`, `P_LOG_03_v3.md`.", "",
+          "**Intentional deviations P5B PHA 1 (24-11-2026, after R2 review 23-11-2026; see `P5/P5B_THEORY_FIX_03.md`):** "
+          "`defn#2` (canonical family: one definition of instance, eta, c(G;A), r(G;A), worst case over the position of A; R2 items 3-4, 6), "
+          "`thmone#1` + `proof#2` + `rem#2` (Theorem 1 restated as the proved bound R <= 1-eta+min{eta,delta}; R2 item 5), "
+          "`thmonep#1` + `proof#3` (Theorem 1'(i) with the single eta; (ii) thinned stride-K backbone so the floor lambda*beta is exact; R2 item 2), "
+          "`rem#3` + `propfive#1` + `proof#7` (Remark removed; Proposition 5 restated for advice first with exact value (m-1)/(N-1); R2 items 1, 28), "
+          "`proof#4` (Theorem 2 converse written for instances (A,E) and by group averaging; R2 items 3, 10). "
+          "Checks: `code/p5_checks.py` -> `results/v3/p5_checks.json` (all_pass).", "",
+          "**P5B PHA 2 (EJOR framing):** the 13 retained baseline blocks are inserted through ONE documented transform (`transform()` in `code/v3_build_paper.py`): numbered environments with labels, systems -> OR vocabulary (gate -> policy, cue -> prediction, fire -> activate, frame -> epoch, HEDGE-GATE -> Hedge, SAT-GATE -> Sat-Policy), references to the new labels, and two listed MINOR fixes (R2 item 30: (1+eps) -> (1-eps) in the frontier theorem; R2 item 7: two nodes of equal weight in the skew remark). Byte identity is checked after the transform. Three of them now sit in supplement S1 (robustness-ratio corollary, onset remark, smoothness remark).", "",
           "## B. 33 locked numbers + energy anchor", "",
           "| id | quantity | baseline | v3 | status |", "|---|---|---|---|---|"] + rows + ["",
           f"**{ok}/{len(LOCKED)} locked numbers carried unchanged.** Notes: N14 — the TPDS text attached 131,325 frames to the "

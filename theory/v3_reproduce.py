@@ -37,12 +37,14 @@ RES = TOPIC / "results"
 ENV = dict(os.environ, PYTHONUTF8="1", PYTHONIOENCODING="utf-8")
 
 JSON_ALWAYS = [REV / "numbers.json", RES / "v3" / "a8c_summary.json", RES / "v3" / "sweep_blockaware_summary.json",
-               RES / "v3" / "sweep_blockaware_synthetic_summary.json"]
+               RES / "v3" / "sweep_blockaware_synthetic_summary.json",
+               RES / "v3" / "p5_alg1_summary.json"]  # P5B
 JSON_FULL = [RES / "v3" / "a8a_summary.json"]
 CSV_ALWAYS = [RES / "v3" / "a8c_alloc.csv", RES / "v3" / "a8c_T2.csv", REV / "S2_percategory_v3.csv",
-              RES / "v3" / "corruption_sweep_REAL_blockaware.csv", RES / "v3" / "corruption_sweep_blockaware.csv"]
+              RES / "v3" / "corruption_sweep_REAL_blockaware.csv", RES / "v3" / "corruption_sweep_blockaware.csv",
+              RES / "v3" / "p5_alg1_sweep.csv"]  # P5B
 CSV_FULL = [RES / "v3" / n for n in ("a8a_ceiling.csv", "a8a_sv_worstcase.csv", "a8a_sv_family_all.csv")]
-BYTES_ALWAYS = [REV / "numbers.tex", RES / "v3" / "thm3_hedge_audit.txt"]
+BYTES_ALWAYS = [REV / "numbers.tex", REV / "tab_svh.tex", RES / "v3" / "thm3_hedge_audit.txt"]
 
 
 def run(script, *args, check=True):
@@ -108,7 +110,14 @@ def main():
     run("v3_a8c_alloc.py")
     sweep_rc = run("v3_sweep_blockaware.py", check=False)
     sweep_rc += run("v3_sweep_blockaware.py", "--synthetic", check=False)
+    run("p5_sweep_alg1.py")  # P5B: Table 3 / fig5 with the randomised backbone of Algorithm 1
     run("v3_numbers.py")
+    if a.full:  # P5B: checks of the statements changed after R2 (all_pass required)
+        pc = TOPIC / "finite_horizon" / "p5_checks.py"
+        pc = pc if pc.exists() else HERE / "p5_checks.py"
+        subprocess.run([sys.executable, str(pc)], check=True, env=ENV)
+        if not json.loads((RES / "v3" / "p5_checks.json").read_text(encoding="utf-8"))["all_pass"]:
+            sys.exit("p5_checks: all_pass is false")
     audit = subprocess.run([sys.executable, str(HERE / "v3_check_thm3_hedge.py")], check=True, env=ENV,
                            capture_output=True).stdout
     tmp = RES / "v3" / "thm3_hedge_audit.txt.tmp"

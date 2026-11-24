@@ -1,0 +1,69 @@
+{
+ "backbone": "Algorithm 1: random phase, stride ceil(T/B), keep w.p. lambda; block-aware uniform advice arm; iso-energy fill",
+ "seeds": [
+  0,
+  1,
+  2,
+  3,
+  4
+ ],
+ "table3_alg1": {
+  "a0.100": {
+   "gate": 0.238,
+   "gate_ci": [
+    0.191,
+    0.29
+   ],
+   "periodic": 0.8,
+   "periodic_ci": [
+    0.781,
+    0.82
+   ],
+   "gap": -0.562,
+   "gap_paired_ci": [
+    -0.613,
+    -0.516
+   ],
+   "gap_ci_excludes_0": true
+  },
+  "a0.200": {
+   "gate": 0.471,
+   "gate_ci": [
+    0.402,
+    0.534
+   ],
+   "periodic": 1.0,
+   "periodic_ci": [
+    1.0,
+    1.0
+   ],
+   "gap": -0.529,
+   "gap_paired_ci": [
+    -0.593,
+    -0.465
+   ],
+   "gap_ci_excludes_0": true
+  },
+  "a0.333": {
+   "gate": 0.655,
+   "gate_ci": [
+    0.594,
+    0.714
+   ],
+   "periodic": 1.0,
+   "periodic_ci": [
+    1.0,
+    1.0
+   ],
+   "gap": -0.345,
+   "gap_paired_ci": [
+    -0.406,
+    -0.282
+   ],
+   "gap_ci_excludes_0": true
+  }
+ },
+ "n_intermediate_cells": 54,
+ "n_intermediate_above_periodic": 0,
+ "above_cells": []
+}

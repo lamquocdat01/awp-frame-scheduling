@@ -82,7 +82,7 @@ for ax in axes:
     ax.set_yticks([0, 0.5, 1.0])
 for ax in axes[:-1]:
     ax.tick_params(labelbottom=False)
-axes[-1].set_xlabel(r"prediction error $\eta$ (real cue)")
+axes[-1].set_xlabel(r"proxy $1-\mathrm{AUC}_{\mathrm{onset}}$ of the corrupted cue")
 h, l = axes[0].get_legend_handles_labels()
 h += [Line2D([], [], color="k", lw=1.3, marker="o", ms=2.6), Line2D([], [], color="k", lw=0.9, ls="--")]
 l += ["block-aware (Alg. 1)", "frame-level (TPDS)"]

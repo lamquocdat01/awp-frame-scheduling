@@ -90,7 +90,7 @@ for row, a in enumerate(A_GRID):
             ax_.tick_params(labelbottom=False)
 axes[0][0].set_title("noise regime ($K$=10, 5, 4 top to bottom)", pad=2)
 axes[0][1].set_title("adversarial regime", pad=2)
-axes[2][0].set_xlabel(r"prediction error $\eta$")
+axes[2][0].set_xlabel(r"proxy $1-\mathrm{AUC}_{\mathrm{onset}}$")
 axes[2][1].set_xlabel("adversarial corruption $p$")
 axes[0][0].legend(ncol=5, loc="lower left", frameon=True, framealpha=0.85,
                   borderpad=0.2, handlelength=1.1, columnspacing=0.6,
