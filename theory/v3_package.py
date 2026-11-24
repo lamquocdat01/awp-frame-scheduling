@@ -46,7 +46,9 @@ def flat_source(tmp: Path) -> list[Path]:
     tex = "\n".join(l for l in tex.splitlines() if not l.startswith("%% ")) + "\n"
     atomic_write_text(tmp / "paper_v3.tex", tex, encoding="utf-8")
     files.append(tmp / "paper_v3.tex")
-    for f in ("numbers.tex", "tab_a8a.tex", "tab_a8c.tex", "refs.bib", "paper_v3.bbl"):
+    # P5C: every \input{...} of the paper (P5B listed files by hand and missed tab_svh.tex) + bibliography
+    inputs = [g if g.endswith(".tex") else g + ".tex" for g in re.findall(r"\\input\{([^}]*)\}", tex)]
+    for f in inputs + ["refs.bib", "paper_v3.bbl"]:
         atomic_copy(REV / f, tmp / f)
         files.append(tmp / f)
     for g in re.findall(r"\\includegraphics\[[^\]]*\]\{([^}]*)\}", tex):
