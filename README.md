@@ -3,7 +3,7 @@
 Code and derived data for *"Learning-augmented scheduling under hard activation budgets: tight
 consistency--robustness bounds, the limits of feedback, and optimal budget allocation"* (Lam Quoc Dat,
 School of Business and Technology, FPT University), **version 3, submitted to the European Journal of
-Operational Research**. Release tag of the submitted version: **`v3.1.0-submission`** (earlier tag `v3.0.1-submission` kept for the record).
+Operational Research**. Release tag of the submitted version: **`v3.1.1-submission`** (earlier tags `v3.1.0-submission` and `v3.0.1-submission` kept for the record).
 
 The paper proves the exact consistency--robustness frontier of online activation under a hard budget with
 untrusted predictions (non-adaptive policies), the limits of feedback for adaptive policies (ceiling, price of
@@ -25,6 +25,17 @@ CDnet2014) are **not** redistributed here and are available from their maintaine
 truncated (see the erratum below). Its history is also contained in this repository.
 
 **License.** MIT — see `LICENSE`.
+
+## Version 3.1.1 (final checks before submission)
+- Theorem 3 (adaptive ceiling): the attaining policy is a uniformly random set of m blocks; the periodic schedule
+  attains the ceiling only when m divides N(W+1). New check `B10_ceiling_attainment` in `finite_horizon/p5_checks.py`
+  (counterexample N = 187, m = 75, W = 1: periodic 0.400 < 0.401).
+- Scope of the finite lower bound re-optimised with three zoom steps (m about 6.5e3 at x = 1, 2.4e5 at x = 2);
+  at N = 187 the finite lower bound has no content for x >= 1.
+- `theory/v3_reproduce.py --full` now also compares `results/v3/p5_checks.json` key by key.
+- Supplement S2: the axis of the corruption figures is the proxy `1 - AUC_onset`, not the prediction error; the
+  floor lambda*beta in the sweep is observed with the deterministic backbone (guaranteed only for the randomised one);
+  a comparison table with the closest models (S2.6).
 
 ## Version 3.1.0 (revision before submission)
 - One definition of consistency and robustness (worst case over the event set and over the position of the

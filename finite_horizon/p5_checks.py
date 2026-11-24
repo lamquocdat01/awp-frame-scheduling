@@ -837,9 +837,28 @@ def b9_constants_and_scope():
                         lo = mid
                 if best is None or hi < best[0]:
                     best = (hi, sv, dl)
+        # P5C: local refinement around the grid optimum (PROOFCHECK3 K2 found 6 547 at x=1, 240 242 at x=2)
+        for (fs, fd, n) in ((0.07, 0.2, 29), (0.02, 0.05, 31), (0.005, 0.012, 21)):   # three zooms
+            _, sv0, dl0 = best
+            for sv in np.linspace((1 - fs) * sv0, (1 + fs) * sv0, n):
+                dm = min(1 / (1 + sv), b / ((1 - b) * sv))
+                for dl in np.linspace((1 - fd) * dl0, (1 + fd) * dl0, n):
+                    if dl >= dm or sv <= 1:
+                        continue
+                    lo, hi = 10.0, best[0] * 1.05
+                    if not thm1p_applicable(b, int(hi), x, sv, dl)[0]:
+                        continue
+                    while hi - lo > 1:
+                        mid = (lo + hi) / 2
+                        if thm1p_applicable(b, int(mid), x, sv, dl)[0]:
+                            hi = mid
+                        else:
+                            lo = mid
+                    if hi < best[0]:
+                        best = (hi, sv, dl)
         opt[f"x={x}"] = dict(m_first=best[0], varsigma=best[1], delta=best[2])
-    s8_opt = 2.0e5 <= opt["x=2"]["m_first"] <= 2.9e5 and 5.5e3 <= opt["x=1"]["m_first"] <= 7.8e3
-    check("B9 S8 optimised scope (paper: m ~ 2.4e5 at x=2, 6.6e3 at x=1)", s8_opt, opt)
+    s8_opt = 2.3e5 <= opt["x=2"]["m_first"] < 2.5e5 and 6.5e3 <= opt["x=1"]["m_first"] < 6.6e3
+    check("B9 S8 optimised scope (paper: m ~ 2.4e5 at x=2, 6.5e3 at x=1)", s8_opt, opt)
     # S8: at beta = 0.2 the upper bound beats the trivial gap beta - theta0 only for x > 60
     t2 = table["0.2"]
     x_star = t2["gamma_beta"] * math.log(t2["C_prime"] / 0.2)
@@ -856,14 +875,41 @@ def b9_constants_and_scope():
     vac_upper = best_gap_bound >= trivial
     sb = consts(bb)["varsigma_star"]
     dmx = min(1 / (1 + sb), bb / ((1 - bb) * sb))
-    vac_lower = not any(thm1p_applicable(bb, m, x, sb, dmx * f)[0] for x in (0.0, 0.5, 1.0, 2.0)
-                        for f in (0.1, 0.5, 0.9))
+    vac_lower = not any(thm1p_applicable(bb, m, x, sv, min(1 / (1 + sv), bb / ((1 - bb) * sv)) * f)[0]
+                        for x in (1.0, 2.0, 3.0) for sv in np.linspace(1.01, 8, 36) for f in np.linspace(0.05, 0.95, 19))
     check("B9 S8 lower-bound scope (m ~ 1e6 at beta=1/2, x<=2)", s8_lower, scope)
     check("B9 S8 upper bound at beta=0.2 beats trivial only for x > 60", s8_upper, x_star)
     check("B9 vacuous at N=187, m=75", vac_upper and vac_lower, (best_gap_bound, trivial, vac_lower))
     return dict(constants=table, lower_bound_first_m_beta_half=scope, lower_bound_first_m_optimised=opt, x_star_beta02=x_star,
                 N187=dict(min_upper_gap_bound=best_gap_bound, trivial_gap=trivial,
-                          upper_vacuous=vac_upper, lower_not_applicable=vac_lower))
+                          upper_vacuous=vac_upper, lower_not_applicable_for_x_ge_1=vac_lower))
+
+
+def b10_ceiling_attainment(Nmax=40, Wmax=7):
+    """P5C (PROOFCHECK3 MAJOR 1): Theorem 3's attainment. A uniformly random set of m blocks activates every
+    block with probability m/N = beta exactly, so it attains beta on every instance; the periodic schedule of stride
+    K = ceil(N(W+1)/m) covers (W+1)/K <= m/N, with equality iff m divides N(W+1)."""
+    viol, eq_ok, n = 0, True, 0
+    for N in range(2, Nmax + 1):
+        for m in range(1, N):
+            beta = Fr(m, N)
+            rand_set = Fr(m, N)   # P(block in a uniform m-subset of [N]) = C(N-1,m-1)/C(N,m)
+            from math import comb
+            ok_r = Fr(comb(N - 1, m - 1), comb(N, m)) == rand_set == beta
+            for W in range(0, Wmax + 1):
+                n += 1
+                K = -(-N * (W + 1) // m)
+                per = min(Fr(1), Fr(W + 1, K))
+                viol += (per > beta) or (not ok_r)
+                eq_ok &= ((per == beta) == ((N * (W + 1)) % m == 0)) or per == 1
+    cx = {}
+    for (N, m, W) in ((187, 75, 1), (3, 2, 0)):
+        K = -(-N * (W + 1) // m)
+        cx[f"N={N},m={m},W={W}"] = dict(K=K, periodic=float(Fr(W + 1, K)), beta=float(Fr(m, N)),
+                                        periodic_below_beta=Fr(W + 1, K) < Fr(m, N))
+    ok = viol == 0 and eq_ok and all(v["periodic_below_beta"] for v in cx.values())
+    check("B10 ceiling attainment: uniform m-set attains beta; periodic only if m | N(W+1)", ok, (viol, eq_ok))
+    return dict(cases=n, violations=viol, equality_iff_divides=eq_ok, counterexamples=cx)
 
 
 # =====================================================================================================
@@ -893,6 +939,7 @@ def main():
     print("B7-B8 done", round(time.time() - T0, 1), "s", flush=True)
     RESULT["B9_lower_internals"] = b9_lower_bound_internals()
     RESULT["B9_constants_scope"] = b9_constants_and_scope()
+    RESULT["B10_ceiling_attainment"] = b10_ceiling_attainment()
     RESULT["failures"] = FAILS
     RESULT["all_pass"] = not FAILS
     runtime = round(time.time() - T0, 1)  # printed only, so that the JSON is reproducible byte for byte

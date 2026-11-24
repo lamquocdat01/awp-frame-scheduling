@@ -581,14 +581,14 @@
   },
   "lower_bound_first_m_optimised": {
    "x=1": {
-    "m_first": 6604.260855962339,
-    "varsigma": 3.4565,
-    "delta": 0.13014697632671382
+    "m_first": 6548.821533801858,
+    "varsigma": 3.4720611630000002,
+    "delta": 0.1359329390456957
    },
    "x=2": {
-    "m_first": 244446.37074551458,
-    "varsigma": 3.107,
-    "delta": 0.07791575359142926
+    "m_first": 240292.1591915704,
+    "varsigma": 3.122535,
+    "delta": 0.08560448015583148
    }
   },
   "x_star_beta02": 60.24895661459347,
@@ -596,7 +596,26 @@
    "min_upper_gap_bound": 0.4694902669678275,
    "trivial_gap": 0.40106951871657753,
    "upper_vacuous": "True",
-   "lower_not_applicable": true
+   "lower_not_applicable_for_x_ge_1": true
+  }
+ },
+ "B10_ceiling_attainment": {
+  "cases": 6240,
+  "violations": 0,
+  "equality_iff_divides": true,
+  "counterexamples": {
+   "N=187,m=75,W=1": {
+    "K": 5,
+    "periodic": 0.4,
+    "beta": 0.40106951871657753,
+    "periodic_below_beta": true
+   },
+   "N=3,m=2,W=0": {
+    "K": 2,
+    "periodic": 0.5,
+    "beta": 0.6666666666666666,
+    "periodic_below_beta": true
+   }
   }
  },
  "failures": [],

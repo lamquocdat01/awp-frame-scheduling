@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """v3 (AwP): copy of Revision_TPDS/figs_1col/merge_fig24.py; the red S/RF benchmark-anchor band
 (numbers belonging to topic #47, see SPLIT_03_vs_47.md) and the benchmark AUC band are removed; the
-measured C121 deployment error eta = 1 - AUC (numbers.json) is marked instead.
+measured C121 deployment proxy 1 - AUC (json key eta_deployed) (numbers.json) is marked instead.
 
 B2: merge fig2 (noise) and fig4 (adversarial) into ONE two-column figure*.
 

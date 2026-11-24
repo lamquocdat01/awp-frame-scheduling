@@ -39,7 +39,7 @@ ENV = dict(os.environ, PYTHONUTF8="1", PYTHONIOENCODING="utf-8")
 JSON_ALWAYS = [REV / "numbers.json", RES / "v3" / "a8c_summary.json", RES / "v3" / "sweep_blockaware_summary.json",
                RES / "v3" / "sweep_blockaware_synthetic_summary.json",
                RES / "v3" / "p5_alg1_summary.json"]  # P5B
-JSON_FULL = [RES / "v3" / "a8a_summary.json"]
+JSON_FULL = [RES / "v3" / "a8a_summary.json", RES / "v3" / "p5_checks.json"]  # P5C: p5_checks compared key by key
 CSV_ALWAYS = [RES / "v3" / "a8c_alloc.csv", RES / "v3" / "a8c_T2.csv", REV / "S2_percategory_v3.csv",
               RES / "v3" / "corruption_sweep_REAL_blockaware.csv", RES / "v3" / "corruption_sweep_blockaware.csv",
               RES / "v3" / "p5_alg1_sweep.csv"]  # P5B

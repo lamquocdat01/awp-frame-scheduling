@@ -15,6 +15,7 @@ was changed or added in v3.1.0:
 | B7 | Theorem `thm:frontier` for every position of the advised set | LP over marginals, N <= 7 |
 | B8 | Theorem `thm:sv`, Theorem `thm:rate`(a) (general and consequence form), Lemmas S1.1-S1.2 of supplement S1 | exact evaluation over all event sets, N <= 9 |
 | B9 | Theorem `thm:rate`(b): sum bounds of the proof, constants table, scope of the asymptotic statements | exact rationals / root finding |
+| B10 | Theorem `thm:ceiling`: a uniform m-set attains beta; periodic only if m divides N(W+1) (counterexample N = 187, m = 75) | exact rationals |
 
 Run: `python finite_horizon/p5_checks.py` (one process, about 4 minutes, < 1 GB RAM; numpy + scipy) →
 `results/v3/p5_checks.json`, field `all_pass`. The JSON is reproducible byte for byte (the runtime is printed, not stored).
