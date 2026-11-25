@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this code or data, please cite the article below."
+title: "awp-frame-scheduling: code and derived data"
+version: v3.1.2-submission
+date-released: 2026-11-25
+license: MIT
+repository-code: "https://github.com/lamquocdat01/awp-frame-scheduling"
+authors:
+  - family-names: "Lam Quoc"
+    given-names: "Dat"
+    orcid: "https://orcid.org/0009-0004-5432-9343"
+    affiliation: "FPT School of Business and Technology (FSB), FPT University, Ho Chi Minh City, Vietnam"
+preferred-citation:
+  type: article
+  title: "Untrusted predictions under hard activation budgets: consistency-robustness frontiers and budget allocation"
+  authors:
+    - family-names: "Lam Quoc"
+      given-names: "Dat"
+      orcid: "https://orcid.org/0009-0004-5432-9343"
+  journal: "Manuscript submitted to the European Journal of Operational Research"
+  year: 2026

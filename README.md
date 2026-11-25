@@ -1,9 +1,9 @@
-# Learning-augmented scheduling under hard activation budgets — code, derived data, reproduction
+# Untrusted predictions under hard activation budgets — code, derived data, reproduction
 
-Code and derived data for *"Learning-augmented scheduling under hard activation budgets: tight
-consistency--robustness bounds, the limits of feedback, and optimal budget allocation"* (Lam Quoc Dat,
-School of Business and Technology, FPT University), **version 3, submitted to the European Journal of
-Operational Research**. Release tag of the submitted version: **`v3.1.1-submission`** (earlier tags `v3.1.0-submission` and `v3.0.1-submission` kept for the record).
+Code and derived data for *"Untrusted predictions under hard activation budgets: consistency--robustness
+frontiers and budget allocation"* (Dat Lam Quoc, FPT School of Business and Technology (FSB), FPT University,
+Ho Chi Minh City; ORCID 0009-0004-5432-9343), **version 3, submitted to the European Journal of
+Operational Research**. Release tag of the submitted version: **`v3.1.2-submission`** (earlier tags `v3.1.1-submission`, `v3.1.0-submission` and `v3.0.1-submission` kept for the record).
 
 The paper proves the exact consistency--robustness frontier of online activation under a hard budget with
 untrusted predictions (non-adaptive policies), the limits of feedback for adaptive policies (ceiling, price of
@@ -25,6 +25,9 @@ CDnet2014) are **not** redistributed here and are available from their maintaine
 truncated (see the erratum below). Its history is also contained in this repository.
 
 **License.** MIT — see `LICENSE`.
+
+## Version 3.1.2 (submitted version)
+- Final title and author name; `CITATION.cff` added. No change to code, data or results relative to 3.1.1.
 
 ## Version 3.1.1 (final checks before submission)
 - Theorem 3 (adaptive ceiling): the attaining policy is a uniformly random set of m blocks; the periodic schedule
@@ -145,7 +148,7 @@ Public benchmarks — download separately and point `ASMAG_DATASETS` at them:
 BMC (Background Models Challenge), LASIESTA, and CDnet2014. The video files are large and
 are **not** included; the pipeline caches per-video cues/events on first run.
 
-### Citation (TPDS version)
-Please cite the paper *"Learning-Augmented Scheduling under Hard Activation Budgets:
-Tight Consistency–Robustness Bounds with Untrusted Predictors"* (IEEE Transactions on
-Parallel and Distributed Systems, under review). See `paper/paper.pdf`.
+### Citation
+Please cite *"Untrusted predictions under hard activation budgets: consistency--robustness frontiers and
+budget allocation"* by Dat Lam Quoc (manuscript submitted to the European Journal of Operational Research;
+see `CITATION.cff`). `paper/paper.pdf` is an earlier version kept for the record.

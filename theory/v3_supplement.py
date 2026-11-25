@@ -39,7 +39,7 @@ def s1():
         "\\newcommand{\\bbeta}{\\beta}\n\\theoremstyle{remark}\\newtheorem*{remark}{Remark}\\theoremstyle{plain}\\newtheorem*{corollary}{Corollary S1.1}")
     L = [pre1,
          r"\begin{center}{\Large Supplementary material S1: complete proofs and theory supplement}\\[4pt]",
-         r"\emph{Learning-augmented scheduling under hard activation budgets} --- L.~Q.~Dat\end{center}",
+         r"\emph{Untrusted predictions under hard activation budgets: consistency--robustness frontiers and budget allocation} --- Dat Lam Quoc\end{center}",
          r"\input{S1_proofs}",
          r"\section*{S1-B\quad Numerical checks of the theory}",
          r"\input{S1_tab_beta}",
@@ -93,7 +93,7 @@ def s2():
     N = json.loads((REV / "numbers.json").read_text(encoding="utf-8"))
     L = [(PRE % ("S2", "S2")).replace(r"\usepackage[hidelinks]{hyperref}", "\\usepackage{xr-hyper}\n\\usepackage[hidelinks]{hyperref}\n\\externaldocument{paper_v3}"),
          r"\begin{center}{\Large Supplementary material S2: empirical supplement}\\[4pt]",
-         r"\emph{Learning-augmented scheduling under hard activation budgets} --- L.~Q.~Dat\end{center}",
+         r"\emph{Untrusted predictions under hard activation budgets: consistency--robustness frontiers and budget allocation} --- Dat Lam Quoc\end{center}",
          r"\section*{S2.1 Per-category breakdown of the real-data study}",
          rf"Windowed coverage ($W{{=}}7$), uncapped, ROI-aligned; {N['c121_videos_ge2']} videos with at least two events. Values are recomputed from the cached per-video scores by \texttt{{theory/v3\_numbers.py}} and match \texttt{{results/percategory.csv}} row by row.",
          r"\begin{table}[h]\centering\caption{Per-category breakdown: motion-score policy vs.\ periodic at $a\in\{0.1,0.2\}$; AUC is the score onset-AUC.}\label{tab:S2percat}",

@@ -21,7 +21,7 @@ TOPIC = Path(__file__).resolve().parents[1]
 REV = TOPIC / "Revision_v3"
 PKG = TOPIC / "submission_package" / "EJOR"
 REPO = Path(os.environ.get("AWP_REPO", r"D:\Repos\awp-frame-scheduling"))
-TAG = "v3.1.1-submission"
+TAG = "v3.1.2-submission"
 # every derived data file the paper / supplements rely on (C7(a): hash now, re-hash the raw GitHub files after push)
 DATA = ["Revision_v3/numbers.json", "Revision_v3/numbers.tex", "Revision_v3/S2_percategory_v3.csv",
         "results/v3/a8a_summary.json", "results/v3/a8a_ceiling.csv", "results/v3/a8a_sv_worstcase.csv",
