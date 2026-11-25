@@ -3,7 +3,7 @@
 Code and derived data for *"Untrusted predictions under hard activation budgets: consistency--robustness
 frontiers and budget allocation"* (Dat Lam Quoc, FPT School of Business and Technology (FSB), FPT University,
 Ho Chi Minh City; ORCID 0009-0004-5432-9343), **version 3, submitted to the European Journal of
-Operational Research**. Release tag of the submitted version: **`v3.1.2-submission`** (earlier tags `v3.1.1-submission`, `v3.1.0-submission` and `v3.0.1-submission` kept for the record).
+Operational Research**. Release tag of the submitted version: **`v3.1.2-submission`** (the earlier public tag `v3.0.1-submission` is kept for the record).
 
 The paper proves the exact consistency--robustness frontier of online activation under a hard budget with
 untrusted predictions (non-adaptive policies), the limits of feedback for adaptive policies (ceiling, price of
